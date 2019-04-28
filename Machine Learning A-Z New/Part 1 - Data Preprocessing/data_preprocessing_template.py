@@ -1,5 +1,7 @@
 # Data Preprocessing Template
 # out of the box version of this file
+# we'll use this code at the beginning of all our model buildings processes
+
 # Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt

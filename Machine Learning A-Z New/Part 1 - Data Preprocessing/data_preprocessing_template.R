@@ -1,5 +1,6 @@
 # Data Preprocessing Template
 # out of the box version of this file
+# we'll use this code at the beginning of all our model buildings processes
 
 # Importing the dataset
 dataset = read.csv('Data.csv')
