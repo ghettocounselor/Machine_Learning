@@ -47,17 +47,19 @@ y_pred
 # ======= Visualising the Training set results
 # install.packages('ggplot2')
 library(ggplot2)
+# install.packages('tidyverse')
+library(tidyverse)
 ggplot() +
   geom_point(aes(x = training_set$YearsExperience, y = training_set$Salary),
              colour = 'red') +
+  # regression line
   geom_line(aes(x = training_set$YearsExperience, y = predict(regressor, newdata = training_set)),
             colour = 'blue') +
-  ggtitle('Salary vs Experience (Training set)') +
+  ggtitle('Salary vs Experience (Training set Data)') +
   xlab('Years of experience') +
-  ylab('Salary')
-
+  ylab('Salary') 
+?ggplot
 # ======= Visualising the Test set results
-library(ggplot2)
 ggplot() +
   geom_point(aes(x = test_set$YearsExperience, y = test_set$Salary),
              colour = 'red') +
@@ -66,3 +68,7 @@ ggplot() +
   ggtitle('Salary vs Experience (Test set)') +
   xlab('Years of experience') +
   ylab('Salary')
+
+
+
+

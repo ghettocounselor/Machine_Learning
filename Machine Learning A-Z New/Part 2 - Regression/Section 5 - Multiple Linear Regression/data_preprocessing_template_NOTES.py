@@ -88,6 +88,10 @@ X[:, 1:3] = imputer.transform(X[:, 1:3])
 #       ['France', 37.0, 67000.0]], dtype=object)
 # =============================================================================
 
+# =============================================================================
+# Encoding - Categorical variables
+# =============================================================================
+
 # Encoding categorical data, basically we are creating Dummy Variables
 # Encoding the Independent Variable
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
@@ -113,7 +117,10 @@ onehotencoder = OneHotEncoder(categorical_features = [0])
 X = onehotencoder.fit_transform(X).toarray()
 # X
 
-# Encoding the Dependent Variable 
+# =============================================================================
+# Encoding - Dependent Variable 
+# =============================================================================
+
 # we don't need the OneHotEncoder
 # we are using y for the dependent variable
 # note we don't add back to the array because above we separated the independent
@@ -150,7 +157,7 @@ plt.show()
 # =============================================================================
 # Feature Scaling and fitting
 # =============================================================================
-
+# not always necessary to do this, sometimes the model will take care of this
 # Feature Scaling https://www.udemy.com/machinelearning/learn/lecture/5683432
 # because Age and Salary are not on the same scale, this will cause problems
 # Euclidean problem :) will cause the Salary to be more dominant in our model
@@ -173,3 +180,43 @@ y_train = sc_y.fit_transform(y_train.reshape(-1,1))
 # =============================================================================
 # visualizations are cool as well - see other section notes
 # =============================================================================
+
+
+# =============================================================================
+# Backwards elimination - building of the model
+# =============================================================================
+# below done with dataset = pd.read_csv('50_Startups.csv')
+# note we'll need to include the a constant because the stats model we are 
+# using isn't smart enough to include 
+# see image IncludeConstant.png
+# see lecture 45 https://www.udemy.com/machinelearning/learn/lecture/5789776
+import statsmodels.formula.api as sm
+# we'll take our vector X and use numpy to append an array of 1's
+# we need a matrix of 50 lines of 1's
+# the code below will add the 1's column to the right side of the group
+X = np.append(arr = X, values = np.once((50,1)),astype(int),axis=1)
+# we want the 1's on the left, in column 0, so we invert the process
+# and add X to the column of 1's
+# interpretation: use numpy to create an array of 50 1's as integers
+# and add X (the values in X) along the axis of 1
+X = np.append(arr = np.ones((50,1)).astype(int), values = X, axis=1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
