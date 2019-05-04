@@ -1,4 +1,5 @@
 # Data Preprocessing Template with Notes
+# HELP in R; either ?X or cursor at end of X and F1
 
 # ======= Importing the dataset
 getwd()
@@ -93,12 +94,31 @@ summary(regressor)
 #   (Intercept)      27658.6     2632.0   10.51 4.14e-09 ***
 #   YearsExperience   9275.6      403.9   22.97 8.74e-15 ***
 
+# ======== couple cool ways to export data from regressor to file
+# word doc !!!!! no package for my R version :( )
+#install.packages('apaStyle')
+#library(apaStyle)
+#apa.regression(reg1, variables = NULL, number = "1", title = " title ",
+#               filename = "APA Table1 regression.docx", note = NULL, landscape = FALSE, save = TRUE, type = "wide")
+
+# This allows to re-import the summary object with dget which could be handy
+dput(summary(lm(Salary ~ YearsExperience,data = training_set)),file="summary_lm.txt",control="all")
+res=dget("summary_lm.txt")
+
+# another option to just kick out the data
+library( broom )
+a <- lm(formula = Salary ~ YearsExperience,
+        data = training_set)
+write.csv( tidy( a ) , "regressor_coefs.csv" )
+write.csv( glance( a ) , "regressor_an.csv" )
 
 # ======= Visualization
 # ======= Predicting the Test set results
 # creating a vector of predicted values for the test set using the fitted model
 y_pred = predict(regressor, newdata = test_set)
 y_pred
+# soon deprecated but cool while it lasts
+write.csv(tidy(y_pred) , "y_predictions-testData.csv")
 
 # ======= Visualising the Training set results
 # install.packages('ggplot2')
