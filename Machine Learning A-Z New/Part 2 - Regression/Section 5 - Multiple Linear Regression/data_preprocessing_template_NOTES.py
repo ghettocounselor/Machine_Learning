@@ -201,6 +201,18 @@ X = np.append(arr = X, values = np.once((50,1)),astype(int),axis=1)
 # and add X (the values in X) along the axis of 1
 X = np.append(arr = np.ones((50,1)).astype(int), values = X, axis=1)
 
+# =============================================================================
+# mannually working through backwards elimination
+# =============================================================================
+# see file multiple_linear_regression.py for working through manually the elim process
+# here: /Users/markloessi/Machine_Learning/Machine Learning A-Z New/Part 2 - Regression/Section 5 - Multiple Linear Regression
+
+# =============================================================================
+# very slick automation of backwards elimnination Lecture 48
+# =============================================================================
+# code in this folder: 
+# /Users/markloessi/Machine_Learning/Machine Learning A-Z New/Part 2 - Regression/Section 5 - Multiple Linear Regression
+# this file: BackwardsEliminationAutomation.py
 
 
 

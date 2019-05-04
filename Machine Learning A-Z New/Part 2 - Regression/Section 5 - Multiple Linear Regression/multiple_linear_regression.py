@@ -22,7 +22,7 @@ y = dataset.iloc[:, 4].values
 # to look at the vectors we just created
 
 # scatter plot the data
-plt.scatter(X,y)
+plt.scatter(X,y) # ValueError: x and y must be the same size
 
 # =============================================================================
 # missing data = none this time - we did have some zeros here and there
@@ -107,7 +107,77 @@ X = np.append(arr = X, values = np.once((50,1)),astype(int),axis=1)
 # and add X to the column of 1's
 # interpretation: use numpy to create an array of 50 1's as integers
 # and add X (the values in X) along the axis of 1
+# we're creating the 'intercept' line for our model
 X = np.append(arr = np.ones((50,1)).astype(int), values = X, axis=1)
+
+# let's create an optimal matrix, as in the variables that have high impact 
+# on the dependent variables. We'll do a backwards elimination. 
+# X_opt for optimal We'll start with all the variables. 
+X_opt = X[:, [0,1,2,3,4,5]]
+
+# step 1 define significance level, we'll use 0.05
+# step 2 fit full model with all possible variables
+## we'll build a new regressor using ordinary least squares
+## we are 'fitting' OLS to the endog and exog varialbes
+X_opt = X[:, [0,1,2,3,4,5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+# step 3 consider highest P 
+## use summary function of sm to do this
+regressor_OLS .summary()
+# push results out to CSV for storing
+f = open('X_opt_1stelim.csv','w')
+f.write(regressor_OLS .summary().as_csv())
+f.close()
+## x2 is 0.990 so we will remove
+X_opt = X[:, [0,1,3,4,5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS .summary()
+f = open('X_opt_2ndelim.csv','w')
+f.write(regressor_OLS .summary().as_csv())
+f.close()
+## x1 is 0.94
+X_opt = X[:, [0,3,4,5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS .summary()
+f = open('X_opt_3rdelim.csv','w')
+f.write(regressor_OLS .summary().as_csv())
+f.close()
+## x2 (which is now 4 in our array) needs to come out as it is 0.602
+## we can check the original X to know what x1,x2 are and we can use
+## the numbers in our [] below to check them. 
+X_opt = X[:, [0,3,5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS .summary()
+f = open('X_opt_4thelim.csv','w')
+f.write(regressor_OLS .summary().as_csv())
+f.close()
+## x2 is very close but we will remove x2 as it is at 0.06
+X_opt = X[:, [0,3]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS .summary()
+f = open('X_opt_5thelim.csv','w')
+f.write(regressor_OLS .summary().as_csv())
+f.close()
+## RESULT - R&D spend is the only variable that has an impact
+# extra code from a question in lecture 48
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

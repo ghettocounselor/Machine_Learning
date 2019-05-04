@@ -1,0 +1,22 @@
+                      OLS Regression Results                     
+Dep. Variable:   ,y               ,  R-squared:         ,   0.947
+Model:           ,OLS             ,  Adj. R-squared:    ,   0.945
+Method:          ,Least Squares   ,  F-statistic:       ,   849.8
+Date:            ,Sat, 04 May 2019,  Prob (F-statistic):,3.50e-32
+Time:            ,06:33:57        ,  Log-Likelihood:    , -527.44
+No. Observations:,    50          ,  AIC:               ,   1059.
+Df Residuals:    ,    48          ,  BIC:               ,   1063.
+Df Model:        ,     1          ,                     ,        
+Covariance Type: ,nonrobust       ,                     ,        
+     ,   coef   , std err ,    t    ,P>|t| ,  [0.025 ,  0.975] 
+const, 4.903e+04, 2537.897,   19.320, 0.000, 4.39e+04, 5.41e+04
+x1   ,    0.8543,    0.029,   29.151, 0.000,    0.795,    0.913
+Omnibus:      ,13.727,  Durbin-Watson:     ,   1.116
+Prob(Omnibus):, 0.001,  Jarque-Bera (JB):  ,  18.536
+Skew:         ,-0.911,  Prob(JB):          ,9.44e-05
+Kurtosis:     , 5.361,  Cond. No.          ,1.65e+05
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.65e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
