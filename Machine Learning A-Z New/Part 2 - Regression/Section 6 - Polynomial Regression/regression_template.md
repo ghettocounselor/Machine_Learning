@@ -1,3 +1,4 @@
+MD file testing
 # This was an attempt in class Lecture 61 
 # here https://www.udemy.com/machinelearning/learn/lecture/5846952
 # to construct a TEMPLATE for use in the future. There are some odd assumptions. 
@@ -11,9 +12,9 @@ import os, sys
 os.chdir(os.path.dirname(os.path.abspath(sys.argv[0])))
 
 # Importing the libraries
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
+`import numpy as np`
+`import matplotlib.pyplot as plt`
+`import pandas as pd`
 
 # =============================================================================
 # # Importing the dataset
@@ -24,7 +25,6 @@ dataset = pd.read_csv('Position_Salaries.csv')
 # remembering that the upper value is ignored we add it in
 X = dataset.iloc[:, 1:2].values
 y = dataset.iloc[:, 2].values
-
 
 # =============================================================================
 # missing data - none
