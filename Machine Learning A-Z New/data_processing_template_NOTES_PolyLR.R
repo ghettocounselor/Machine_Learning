@@ -1,6 +1,13 @@
 # Data Preprocessing Template with Notes
 # HELP in R; either ?X or cursor at end of X and F1
 
+
+"""
+see the polynomial regression file for better notes, 
+need to boil it down to a template
+"""
+
+
 # ======= Importing the dataset
 getwd()
 setwd('/Users/markloessi/Machine_Learning....')
@@ -132,6 +139,8 @@ ggplot() +
   ggtitle('Salary vs Experience (Training set)') +
   xlab('Years of experience') +
   ylab('Salary')
+# save graph to file
+ggsave("training_graph.pdf")
 
 # ======= Visualising the Test set results
 library(ggplot2)
@@ -144,3 +153,21 @@ ggplot() +
   ggtitle('Salary vs Experience (Test set)') +
   xlab('Years of experience') +
   ylab('Salary')
+# save graph to file
+ggsave("test_graph.pdf")
+
+# Predicting a new result with Linear Regression
+lin_pred <- predict(lin_regressor, data.frame(Level = 6.5))
+lin_pred
+# bit of a hack but will kick out the dataframe to text file
+write.csv( tidy( lin_pred ) , "lin_pred.txt" )
+
+# Predicting a new result with Polynomial Regression
+poly_pred <- predict(poly_regressor, data.frame(Level = 6.5,
+                                                Level2 = 6.5^2,
+                                                Level3 = 6.5^3,
+                                                Level4 = 6.5^4))
+poly_pred
+# bit of a hack but will kick out the dataframe to text file
+write.csv( tidy( poly_pred ) , "poly_pred.txt" )
+
