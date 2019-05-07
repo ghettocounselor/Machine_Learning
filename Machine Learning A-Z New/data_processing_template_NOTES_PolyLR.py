@@ -38,7 +38,7 @@ dataset.describe()
 # not working as expected?? spyder
 """
 pf.ProfileReport(dataset)"""
-# basically next we want to separate the Independent (X) and Dependent (y) variables.
+# basically next we want to separate the Independent (X) and Dependent (y) variables. TRUTH => Y (dependent) and  X (independent) 
 # x will be the array that makes up the independent variable(s)
 # reading the [] bit we are saying to the left of the , that we want all the variables
 # on the right of the , we are saying all of them except the one on the right (-1)

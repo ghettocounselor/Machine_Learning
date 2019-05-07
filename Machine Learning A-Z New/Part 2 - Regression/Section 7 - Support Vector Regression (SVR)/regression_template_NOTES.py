@@ -19,12 +19,11 @@ import pandas as pd
 # # Importing the dataset
 # =============================================================================
 dataset = pd.read_csv('Position_Salaries.csv')
-# in our data we only need the years (independent) and salary (dependent variable)
-# we want a matrix so we'll use Py against itself
+# in our data we only need the salary Y (dependent) and years X (independent variable)
+# we want a matrix not a vector so we'll use Py against itself
 # remembering that the upper value is ignored we add it in
 X = dataset.iloc[:, 1:2].values
 y = dataset.iloc[:, 2].values
-
 
 # =============================================================================
 # missing data - none

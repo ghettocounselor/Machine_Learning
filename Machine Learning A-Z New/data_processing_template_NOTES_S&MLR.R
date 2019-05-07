@@ -74,6 +74,7 @@ test_set
 training_set = scale(training_set)
 # > training_set = scale(training_set)
 # Error in colMeans(x, na.rm = TRUE) : 'x' must be numeric
+# TRUTH => Y (dependent) and  X (independent) 
 # this is because the Factors in country and purchased are not numeric
 # so we'll specify the columns we want to feature scale
 training_set[, 2:3] = scale(training_set[, 2:3])

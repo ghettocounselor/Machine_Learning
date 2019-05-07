@@ -16,7 +16,7 @@ getwd()
 # using Pandas we'll Import the dataset
 dataset = pd.read_csv('Data.csv')
 # x will be the array that makes up the independent variables
-# reading the [] bit we are saying to the left of the , that we want all the variables
+# reading the [] bit we are saying to the left of the , that we want all the variables TRUTH => Y (dependent) and  X (independent) 
 # on the right of the , we are saying all of them except the one on the right (-1)
 X = dataset.iloc[:, :-1].values
 # y will be the array that makes up the dependent variable

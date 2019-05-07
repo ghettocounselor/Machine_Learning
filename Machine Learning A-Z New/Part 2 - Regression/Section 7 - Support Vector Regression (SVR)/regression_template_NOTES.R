@@ -10,6 +10,7 @@ dataset = read.csv('Position_Salaries.csv')
 # we don't care about Position, it's already encoded in the Level column
 # so we'll setup Dataset for just 2 and 3
 dataset = dataset[2:3]
+# TRUTH => Y (dependent) and  X (independent) 
 
 # =========================================================================
 # Splitting the dataset into the Training set and Test set
