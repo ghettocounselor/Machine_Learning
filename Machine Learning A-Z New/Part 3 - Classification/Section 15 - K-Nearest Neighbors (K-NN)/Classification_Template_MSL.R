@@ -1,5 +1,7 @@
-# Logistic Regression
-# Lecture 93 https://www.udemy.com/machinelearning/learn/lecture/5684826
+# Logistic Regression Intuition
+# Lecture 85 https://www.udemy.com/machinelearning/learn/lecture/6270024
+# K-Nearest Neighbors Intuition - sort of a clustering idea where we group to a datapoints neighbors
+# Lecture 99 https://www.udemy.com/machinelearning/learn/lecture/5714404
 
 getwd() # check Working directory
 
@@ -30,15 +32,27 @@ test_set = subset(dataset, split == FALSE)
 training_set[-3] = scale(training_set[-3])
 test_set[-3] = scale(test_set[-3])
 
-# Fitting Logistic Regression to the Training set
+# ============================================================================================
+# Fitting classifier to the Training set
+# ============================================================================================
 # lecture 94 https://www.udemy.com/machinelearning/learn/lecture/5684978
 # we'll use the glm function; glm is used to fit generalized linear models, 
 # specified by giving a symbolic description of the linear predictor and a 
 # description of the error distribution.
 # formula is Dependent variable and ~ then Independent variable, in this case all so '.'
-classifier = glm(formula = Purchased ~ .,
-                 family = binomial, # for logistic regression we use binomial family
-                 data = training_set)
+classifier = # here we'll apply a dif modeling tool
+  
+  # Step 1 import necessary model and/or functions
+  
+  # Step 2 create our object
+  
+  # Step 3 fit object to our data
+# sometimes this process is combined with the prediction; ex K-NN
+# see K-NN documentation for R in KNN_MSL.R
+# ==========================================================================================
+# create classifier above
+# ============================================================================================
+
 
 # Predicting the Test set results
 # lecture 95 https://www.udemy.com/machinelearning/learn/lecture/5685394
@@ -87,7 +101,7 @@ y_grid = ifelse(prob_set > 0.5, 1, 0)
 # that's the end of the background
 # now we plat the actual data 
 plot(set[, -3],
-     main = 'Logistic Regression (Training set)',
+     main = 'Classifier (Training set)',
      xlab = 'Age', ylab = 'Estimated Salary',
      xlim = range(X1), ylim = range(X2)) # this bit creates the limits to the values plotted
 # this is also a part of the MAGIC as it creates the line between green and red
@@ -108,7 +122,7 @@ colnames(grid_set) = c('Age', 'EstimatedSalary')
 prob_set = predict(classifier, type = 'response', newdata = grid_set)
 y_grid = ifelse(prob_set > 0.5, 1, 0)
 plot(set[, -3],
-     main = 'Logistic Regression (Test set)',
+     main = 'Classifier (Test set)',
      xlab = 'Age', ylab = 'Estimated Salary',
      xlim = range(X1), ylim = range(X2))
 contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)

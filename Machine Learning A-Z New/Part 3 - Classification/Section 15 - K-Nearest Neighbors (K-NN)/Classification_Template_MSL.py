@@ -1,5 +1,7 @@
-# Logistic Regression
-# Lecture 87 https://www.udemy.com/machinelearning/learn/lecture/5684812
+# Logistic Regression Intuition
+# Lecture 85 https://www.udemy.com/machinelearning/learn/lecture/6270024
+# K-Nearest Neighbors Intuition - sort of a clustering idea where we group to a datapoints neighbors
+# Lecture 99 https://www.udemy.com/machinelearning/learn/lecture/5714404
 
 # check working directory
 import os
@@ -18,6 +20,8 @@ import pandas as pd
 dataset = pd.read_csv('Social_Network_Ads.csv')
 # lets look
 '''
+in: dataset
+Output:
       User ID  Gender  Age  EstimatedSalary  Purchased
 0    15624510    Male   19            19000          0
 1    15810944    Male   35            20000          0
@@ -44,15 +48,14 @@ X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
 # =============================================================================
-# # Fitting Logistic Regression to the Training set
+# # Fitting the classifier to the Training set
 # =============================================================================
-# we're using the linear_model because we're dealing with data in two dimensions
-from sklearn.linear_model import LogisticRegression
-# here we build an object we'll call classifier (could call it anything)
-classifier = LogisticRegression(random_state = 0) # random state 0 
-# we did this in class so in class we get the same results
-# now fit to our training set
-classifier.fit(X_train, y_train)
+# specific to the data we are dealing with
+# Step 1 import necessary model and/or functions
+
+# Step 2 create our object
+
+# Step 3 fit object to our data
 
 # =============================================================================
 # # Predicting the Test set results
@@ -107,7 +110,7 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('Logistic Regression (Training set)')
+plt.title('Classifier (Training set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
@@ -127,7 +130,7 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('Logistic Regression (Test set)')
+plt.title('Classifier (Test set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()

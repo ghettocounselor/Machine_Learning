@@ -1,5 +1,19 @@
 # Classification template
 
+
+
+
+# =============================================================================
+# used my template as it brings forward extra bits and thoughts
+# =============================================================================
+
+
+
+
+
+
+
+
 # Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt

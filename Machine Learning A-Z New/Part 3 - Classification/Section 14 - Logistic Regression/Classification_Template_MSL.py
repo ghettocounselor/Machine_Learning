@@ -44,15 +44,9 @@ X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
 # =============================================================================
-# # Fitting Logistic Regression to the Training set
+# # Fitting the classifier to the Training set
 # =============================================================================
-# we're using the linear_model because we're dealing with data in two dimensions
-from sklearn.linear_model import LogisticRegression
-# here we build an object we'll call classifier (could call it anything)
-classifier = LogisticRegression(random_state = 0) # random state 0 
-# we did this in class so in class we get the same results
-# now fit to our training set
-classifier.fit(X_train, y_train)
+# specific to the data we are dealing with
 
 # =============================================================================
 # # Predicting the Test set results

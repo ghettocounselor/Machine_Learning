@@ -1,5 +1,9 @@
-# Logistic Regression
-# Lecture 87 https://www.udemy.com/machinelearning/learn/lecture/5684812
+# MSL version of this Lecture 101 https://www.udemy.com/machinelearning/learn/lecture/5735502
+
+# Logistic Regression Intuition
+# Lecture 85 https://www.udemy.com/machinelearning/learn/lecture/6270024
+# K-Nearest Neighbors Intuition - sort of a clustering idea where we group to a datapoints neighbors
+# Lecture 99 https://www.udemy.com/machinelearning/learn/lecture/5714404
 
 # check working directory
 import os
@@ -18,6 +22,8 @@ import pandas as pd
 dataset = pd.read_csv('Social_Network_Ads.csv')
 # lets look
 '''
+in: dataset
+Output:
       User ID  Gender  Age  EstimatedSalary  Purchased
 0    15624510    Male   19            19000          0
 1    15810944    Male   35            20000          0
@@ -44,14 +50,15 @@ X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
 # =============================================================================
-# # Fitting Logistic Regression to the Training set
+# # Fitting the classifier to the Training set
 # =============================================================================
-# we're using the linear_model because we're dealing with data in two dimensions
-from sklearn.linear_model import LogisticRegression
-# here we build an object we'll call classifier (could call it anything)
-classifier = LogisticRegression(random_state = 0) # random state 0 
-# we did this in class so in class we get the same results
-# now fit to our training set
+# Step 1 import necessary model and/or functions
+from sklearn.neighbors import KNeighborsClassifier
+# Step 2 create our object
+# n_neighbors is number of neighbors, minkowski metric references the Euclidean dist
+# p = 2 further clarifies as Euclidean dist as our distance to use in algorithm
+classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
+# Step 3 fit object to our data
 classifier.fit(X_train, y_train)
 
 # =============================================================================
@@ -60,7 +67,7 @@ classifier.fit(X_train, y_train)
 # y is the dependent varialbe of purchase YES/NO 1/0
 # here we use the predict function of the classifier object
 y_pred = classifier.predict(X_test)
-
+y_predtr = classifier.predict(X_train)
 # =============================================================================
 # # Making the Confusion Matrix
 # =============================================================================
@@ -70,19 +77,25 @@ y_pred = classifier.predict(X_test)
 from sklearn.metrics import confusion_matrix
 # and now we'll compute comparing y_test and y_pred
 cm = confusion_matrix(y_test, y_pred)
+cm
 '''
 Have a look
-In [33] cm
-Out[33]: 
-array([[65,  3],
-       [ 8, 24]])
+cm
+Out[14]: 
+array([[64,  4],
+       [ 3, 29]])
 '''
 # the colums are for 1 and 0 
-# the answers are for correct 65 1's and 24 0's  - 89 correct predictions
-# the 3 and 8 are the incorrect predictions - 11 incorrect predictions
-
+# 93 correct predictions
+# 7 incorrect predictions
+cmtr = confusion_matrix(y_train, y_predtr)
+cmtr
 # =============================================================================
 # # Visualising the Training set results
+# =============================================================================
+# =============================================================================
+# NOTE K-NN is a non-linear classifier so we won't have a straight line in the graph
+# separating green and red !!
 # =============================================================================
 from matplotlib.colors import ListedColormap
 # think of this bit as declaring X_set and y_set in our code so we can easily
@@ -107,11 +120,32 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('Logistic Regression (Training set)')
+plt.title('K-NN (Training set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
 plt.show()
+
+# =============================================================================
+# not sure Python likes all the comment lines
+# =============================================================================
+from matplotlib.colors import ListedColormap
+X_set, y_set = X_train, y_train
+X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
+                     np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.01))
+plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape),
+             alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+plt.xlim(X1.min(), X1.max())
+plt.ylim(X2.min(), X2.max())
+for i, j in enumerate(np.unique(y_set)):
+    plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
+                c = ListedColormap(('red', 'green'))(i), label = j)
+plt.title('K-NN (Training set)')
+plt.xlabel('Age')
+plt.ylabel('Estimated Salary')
+plt.legend()
+plt.show()
+
 
 # =============================================================================
 # # Visualising the Test set results
@@ -127,7 +161,7 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('Logistic Regression (Test set)')
+plt.title('K-NN (Test set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
