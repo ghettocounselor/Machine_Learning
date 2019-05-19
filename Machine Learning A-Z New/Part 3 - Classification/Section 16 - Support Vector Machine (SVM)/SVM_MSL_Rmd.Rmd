@@ -1,0 +1,125 @@
+---
+title: "SVM Machine Learning in R"
+output: html_document
+---
+### Support Vector Machine (SVM)
+Lecture 107 https://www.udemy.com/machinelearning/learn/lecture/5739456
+
+Check Working directory getwd()
+```{r, include=FALSE}
+getwd()
+```
+
+# Importing the dataset
+we are after the age and salary and the y/n purchased
+so in R that's columns 3-5
+```{r , include=TRUE}
+dataset = read.csv('Social_Network_Ads.csv')
+dataset = dataset[3:5]
+```
+Have a look at data
+```{r , include=TRUE}
+summary(dataset)
+head(dataset)
+```
+
+# Encoding the target feature as factor
+```{r , include=TRUE}
+dataset$Purchased = factor(dataset$Purchased, levels = c(0, 1))
+```
+Let's look again
+```{r , include=TRUE}
+summary(dataset)
+```
+
+# Splitting the dataset into the Training set and Test set
+
+```{r , include=TRUE}
+# install.packages('caTools')
+library(caTools)
+set.seed(123)
+split = sample.split(dataset$Purchased, SplitRatio = 0.75)
+training_set = subset(dataset, split == TRUE)
+test_set = subset(dataset, split == FALSE)
+```
+
+# Feature Scaling
+Feature Scaling - for classification it's better to do feature scalling
+additionally we have variables where the units are not the same
+```{r , include=TRUE}
+training_set[-3] = scale(training_set[-3])
+test_set[-3] = scale(test_set[-3])
+```
+Let's have a look.
+```{r , include=TRUE}
+head(training_set)
+```
+
+# Fitting SVM to the Training set
+We'll use kernel = linear as our example.
+kernel - the kernel used in training and predicting. You might consider changing some of the following parameters, depending on the kernel type.
+Options; linear, polynomial, radial basis, sigmoid.
+
+The formula = the dependent variable ~ other variables you want to test in this case '.' for all. 
+data = data you want to train on
+```{r , include=TRUE}
+# install.packages('e1071')
+library(e1071)
+classifierL = svm(formula = Purchased ~ .,
+                 data = training_set,
+                 type = 'C-classification',
+                 kernel = 'linear')
+```
+
+# Predict the Test set results
+```{r , include=TRUE}
+y_predL = predict(classifierL, newdata = test_set[-3])
+```
+# Making the Confusion Matrix
+```{r , include=TRUE}
+cmL = table(test_set[, 3], y_predL)
+cmL
+```
+# Visualising the Training set results
+```{r , include=TRUE}
+library(ElemStatLearn)
+# declare set as the training set
+set = training_set
+# this section creates the background region red/green. It does that by the 'by' which you can think of as the steps in python, so each 0.01 is interpreted as 0 or 1 and is either green or red. The -1 and +1 give us the space around the edges so the dots are not jammed
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+# just giving a name to the X and Y 
+colnames(grid_set) = c('Age', 'EstimatedSalary')
+# this is the MAGIC of the background coloring
+# here we use the classifier to predict the result of each of each of the pixel bits noted above
+y_gridL = predict(classifierL, newdata = grid_set)
+# that's the end of the background
+# now we plat the actual data 
+plot(set[, -3],
+     main = 'SVM Linear Kernel (Training set)',
+     xlab = 'Age', ylab = 'Estimated Salary',
+     xlim = range(X1), ylim = range(X2)) # this bit creates the limits to the values plotted this is also a part of the MAGIC as it creates the line between green and red
+contour(X1, X2, matrix(as.numeric(y_gridL), length(X1), length(X2)), add = TRUE)
+# here we run through all the y_pred data and use ifelse to color the dots
+# note the dots are the real data, the background is the pixel by pixel determination of y/n
+# graph the dots on top of the background give you the image
+points(grid_set, pch = '.', col = ifelse(y_gridL == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+```
+# Visualising the Test set results
+```{r , include=TRUE}
+library(ElemStatLearn)
+set = test_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('Age', 'EstimatedSalary')
+y_gridL = predict(classifierL, newdata = grid_set)
+plot(set[, -3], main = 'SVM (Test set)',
+     xlab = 'Age', ylab = 'Estimated Salary',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_gridL), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_gridL == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+```

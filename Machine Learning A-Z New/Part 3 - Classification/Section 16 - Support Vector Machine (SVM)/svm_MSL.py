@@ -1,9 +1,5 @@
-# MSL version of this Lecture 101 https://www.udemy.com/machinelearning/learn/lecture/5735502
-
-# Logistic Regression Intuition
-# Lecture 85 https://www.udemy.com/machinelearning/learn/lecture/6270024
-# K-Nearest Neighbors Intuition - sort of a clustering idea where we group to a datapoints neighbors
-# Lecture 99 https://www.udemy.com/machinelearning/learn/lecture/5714404
+# Support Vector Machine (SVM)
+# lecture 106 https://www.udemy.com/machinelearning/learn/lecture/5738982
 
 # check working directory
 import os
@@ -53,13 +49,17 @@ X_test = sc.transform(X_test)
 # # Fitting the classifier to the Training set
 # =============================================================================
 # Step 1 import necessary model and/or functions
-from sklearn.neighbors import KNeighborsClassifier
-# Step 2 create our object
-# n_neighbors is number of neighbors, minkowski metric references the Euclidean dist
-# p = 2 further clarifies as Euclidean dist as our distance to use in algorithm
-classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
+from sklearn.svm import SVC
+# Step 2 create our object; 
+# we'll use the linear kernel, it's the basic one , random state allows us
+# all in class to get the same experience
+classifier = SVC(kernel = 'linear', random_state = 0)
 # Step 3 fit object to our data
 classifier.fit(X_train, y_train)
+
+# try a new kernel - sigmoid
+classifierSIG = SVC(kernel = 'sigmoid', random_state = 0)
+classifierSIG.fit(X_train, y_train)
 
 # =============================================================================
 # # Predicting the Test set results
@@ -68,6 +68,11 @@ classifier.fit(X_train, y_train)
 # here we use the predict function of the classifier object
 y_pred = classifier.predict(X_test)
 y_predtr = classifier.predict(X_train)
+
+# try a new kernel - sigmoid kernel
+y_predSIG = classifierSIG.predict(X_test)
+y_predtrSIG = classifierSIG.predict(X_train)
+
 # =============================================================================
 # # Making the Confusion Matrix
 # =============================================================================
@@ -75,6 +80,7 @@ y_predtr = classifier.predict(X_train)
 # basically a table of predictions vs actual or vice versa
 # we'll import a function called confusion_matrix
 from sklearn.metrics import confusion_matrix
+
 # and now we'll compute comparing y_test and y_pred
 cm = confusion_matrix(y_test, y_pred)
 cm
@@ -82,12 +88,21 @@ cm
 Have a look
 cm
 Out[14]: 
-array([[64,  4],
-       [ 3, 29]])
+array([[66,  2],
+       [ 8, 24]])
 '''
 # the colums are for 1 and 0 
-# 93 correct predictions
-# 7 incorrect predictions
+# 90 correct predictions
+# 10 incorrect predictions
+
+# new kernel - sigmoid
+cmSIG = confusion_matrix(y_test, y_predSIG)
+cmSIG
+'''
+array([[54, 14],
+       [12, 20]])
+'''
+
 # now we can run the CM on the Y Train data with the predictor from the X train
 # this is where the model was trained :) 
 cmtr = confusion_matrix(y_train, y_predtr)
@@ -99,12 +114,16 @@ array([[173,  16],
        [ 37,  74]])
 '''
 
+# new kernel - sigmoid
+cmtrSIG = confusion_matrix(y_train, y_predtrSIG)
+cmtrSIG
+'''
+array([[140,  49],
+       [ 52,  59]])
+'''
+
 # =============================================================================
 # # Visualising the Training set results
-# =============================================================================
-# =============================================================================
-# NOTE K-NN is a non-linear classifier so we won't have a straight line in the graph
-# separating green and red !!
 # =============================================================================
 from matplotlib.colors import ListedColormap
 # think of this bit as declaring X_set and y_set in our code so we can easily
@@ -129,32 +148,11 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('K-NN (Training set)')
+plt.title('SVM (Training set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
 plt.show()
-
-# =============================================================================
-# not sure Python likes all the comment lines - doesn't seem to mind them
-# =============================================================================
-from matplotlib.colors import ListedColormap
-X_set, y_set = X_train, y_train
-X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
-                     np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.01))
-plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape),
-             alpha = 0.75, cmap = ListedColormap(('red', 'green')))
-plt.xlim(X1.min(), X1.max())
-plt.ylim(X2.min(), X2.max())
-for i, j in enumerate(np.unique(y_set)):
-    plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
-                c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('K-NN (Training set)')
-plt.xlabel('Age')
-plt.ylabel('Estimated Salary')
-plt.legend()
-plt.show()
-
 
 # =============================================================================
 # # Visualising the Test set results
@@ -170,13 +168,48 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('K-NN (Test set)')
+plt.title('SVM (Test set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
 plt.show()
 
+# =============================================================================
+# Sigmoid Kernel
+# =============================================================================
+# Visualising the Training set results
+from matplotlib.colors import ListedColormap
+X_set, y_set = X_train, y_train
+X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
+                     np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.01))
+plt.contourf(X1, X2, classifierSIG.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape),
+             alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+plt.xlim(X1.min(), X1.max())
+plt.ylim(X2.min(), X2.max())
+for i, j in enumerate(np.unique(y_set)):
+    plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
+                c = ListedColormap(('red', 'green'))(i), label = j)
+plt.title('SVM Sigmoid (Training set)')
+plt.xlabel('Age')
+plt.ylabel('Estimated Salary')
+plt.legend()
+plt.show()
 
-
-
+# Visualising the Test set results
+from matplotlib.colors import ListedColormap
+X_set, y_set = X_test, y_test
+X1, X2 = np.meshgrid(np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
+                     np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.01))
+plt.contourf(X1, X2, classifierSIG.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape),
+             alpha = 0.75, cmap = ListedColormap(('red', 'green')))
+plt.xlim(X1.min(), X1.max())
+plt.ylim(X2.min(), X2.max())
+for i, j in enumerate(np.unique(y_set)):
+    plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
+                c = ListedColormap(('red', 'green'))(i), label = j)
+plt.title('SVM Sigmoid (Test set)')
+plt.xlabel('Age')
+plt.ylabel('Estimated Salary')
+plt.legend()
+plt.show()
 
