@@ -2,10 +2,12 @@
 title: "SVM Machine Learning in R"
 output: html_document
 ---
+Github files; https://github.com/ghettocounselor
+
 ### Support Vector Machine (SVM)
 Lecture 107 https://www.udemy.com/machinelearning/learn/lecture/5739456
 
-Check Working directory getwd()
+Check Working directory getwd() to always know where you are working. 
 ```{r, include=FALSE}
 getwd()
 ```
