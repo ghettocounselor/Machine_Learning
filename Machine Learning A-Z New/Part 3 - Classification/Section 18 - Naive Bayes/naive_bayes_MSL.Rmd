@@ -1,0 +1,139 @@
+---
+title: "Naive Bayes algorithm in a prediction model"
+output: html_document
+---
+
+Github files; https://github.com/ghettocounselor
+
+### Naive Bayes
+Naive Bayes - is an algorithm used in a popular model
+Explained across a couple of lectures, pretty striaght forward idea
+Lecture 115 https://www.udemy.com/machinelearning/learn/lecture/5732736 
+Lecture 116 https://www.udemy.com/machinelearning/learn/lecture/5732738
+Lecture 117 https://www.udemy.com/machinelearning/learn/lecture/5732740
+Lecture 118 https://www.udemy.com/machinelearning/learn/lecture/5732742
+R Lecture 121 https://www.udemy.com/machinelearning/learn/lecture/5754212 
+
+As most things ML this is really about probability of something happening based on previous knowledge (aprior), aka previous experperience.
+Good stuff https://en.wikipedia.org/wiki/Bayes%27_theorem 
+
+Check Working directory getwd() to always know where you are working. 
+```{r, include=FALSE}
+getwd()
+```
+
+# Importing the dataset
+we are after the age and salary and the y/n purchased
+so in R that's columns 3-5
+```{r , include=TRUE}
+dataset = read.csv('Social_Network_Ads.csv')
+dataset = dataset[3:5]
+```
+Have a look at data
+```{r , include=TRUE}
+summary(dataset)
+head(dataset)
+```
+
+# Encoding the target feature, catagorical variable, as factor
+We do this remember because the model we are using doesn't do this for us.
+```{r , include=TRUE}
+dataset$Purchased = factor(dataset$Purchased, levels = c(0, 1))
+```
+Let's look again
+```{r , include=TRUE}
+summary(dataset)
+```
+
+# Splitting the dataset into the Training set and Test set
+General rule of thumb is 75% for split ratio; 75% train, 25% test
+```{r , include=TRUE}
+# install.packages('caTools')
+library(caTools)
+set.seed(123)
+split = sample.split(dataset$Purchased, SplitRatio = 0.75)
+training_set = subset(dataset, split == TRUE)
+test_set = subset(dataset, split == FALSE)
+```
+
+# Feature Scaling
+Feature Scaling - for classification it's better to do feature scalling
+additionally we have variables where the units are not the same
+```{r , include=TRUE}
+training_set[-3] = scale(training_set[-3])
+test_set[-3] = scale(test_set[-3])
+```
+Let's have a look.
+```{r , include=TRUE}
+head(training_set)
+```
+
+# Fitting Naive Bayes to the Training set
+Things are a little different here, we don't need formula, and other features we just need x and y. x will be the independent variables (hence the datase -3 removing the column we don't need), y is the dependent variable. 
+```{r , include=TRUE}
+# install.packages('e1071')
+library(e1071)
+classifier = naiveBayes(x = training_set[-3],
+                        y = training_set$Purchased)
+```
+
+# Predict the Test set results - Naive Bayes
+```{r , include=TRUE}
+y_pred = predict(classifier, newdata = test_set[-3])
+```
+We can look at this on as it's just yes/no's
+```{r , include=TRUE}
+y_pred
+```
+
+# Making the Confusion Matrix - Naive Bayes
+```{r , include=TRUE}
+cm = table(test_set[, 3], y_pred)
+cm
+```
+
+# Visualising the Training set results - Naive Bayes
+```{r , include=TRUE, fig.width=10, fig.height=7}
+library(ElemStatLearn)
+# declare set as the training set
+set = training_set
+# this section creates the background region red/green. It does that by the 'by' which you can think of as the steps in python, so each 0.01 is interpreted as 0 or 1 and is either green or red. The -1 and +1 give us the space around the edges so the dots are not jammed. Another way to think of the 'by' as is as the resolution of the graphing of the background
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+# just giving a name to the X and Y 
+colnames(grid_set) = c('Age', 'EstimatedSalary')
+# this is the MAGIC of the background coloring
+# here we use the classifier to predict the result of each of each of the pixel bits noted above
+y_grid = predict(classifier, newdata = grid_set)
+# that's the end of the background
+# now we plat the actual data 
+plot(set[, -3],
+     main = 'Naive Bayes (Training set)',
+     xlab = 'Age', ylab = 'Estimated Salary',
+     xlim = range(X1), ylim = range(X2)) # this bit creates the limits to the values plotted this is also a part of the MAGIC as it creates the line between green and red
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+# here we run through all the y_pred data and use ifelse to color the dots
+# note the dots are the real data, the background is the pixel by pixel determination of y/n
+# graph the dots on top of the background give you the image
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+```
+
+# Visualising the Test set results - Naive Bayes
+```{r , include=TRUE, fig.width=10, fig.height=7}
+library(ElemStatLearn)
+set = test_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('Age', 'EstimatedSalary')
+y_grid = predict(classifier, newdata = grid_set)
+plot(set[, -3], main = 'SVM Radial Kernel (Test set)',
+     xlab = 'Age', ylab = 'Estimated Salary',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+```
+
