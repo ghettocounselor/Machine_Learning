@@ -147,6 +147,26 @@ points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
 ```
 
 # Added bonus let's visualize the Decsion Trees
+However we need to take the feature scaling out so we can read the splits :D
+
+```{r , include=TRUE}
+dataset = read.csv('Social_Network_Ads.csv')
+dataset = dataset[3:5]
+```
+
+```{r , include=TRUE}
+dataset$Purchased = factor(dataset$Purchased, levels = c(0, 1))
+```
+
+```{r , include=TRUE}
+# install.packages('caTools')
+library(caTools)
+set.seed(123)
+split = sample.split(dataset$Purchased, SplitRatio = 0.75)
+training_set = subset(dataset, split == TRUE)
+test_set = subset(dataset, split == FALSE)
+```
+
 Plotting the tree
 ```{r , include=TRUE, fig.width=10, fig.height=7}
 plot(classifier)
