@@ -360,6 +360,16 @@ points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))</code></pre>
 </div>
 <div id="added-bonus-lets-visualize-the-decsion-trees" class="section level1">
 <h1>Added bonus let’s visualize the Decsion Trees</h1>
+<p>However we need to take the feature scaling out so we can read the splits :D</p>
+<pre class="r"><code>dataset = read.csv('Social_Network_Ads.csv')
+dataset = dataset[3:5]</code></pre>
+<pre class="r"><code>dataset$Purchased = factor(dataset$Purchased, levels = c(0, 1))</code></pre>
+<pre class="r"><code># install.packages('caTools')
+library(caTools)
+set.seed(123)
+split = sample.split(dataset$Purchased, SplitRatio = 0.75)
+training_set = subset(dataset, split == TRUE)
+test_set = subset(dataset, split == FALSE)</code></pre>
 <p>Plotting the tree</p>
 <pre class="r"><code>plot(classifier)
 text(classifier)</code></pre>
