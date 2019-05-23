@@ -167,6 +167,13 @@ training_set = subset(dataset, split == TRUE)
 test_set = subset(dataset, split == FALSE)
 ```
 
+```{r , include=TRUE}
+# install.packages('rpart')
+library(rpart)
+classifier = rpart(formula = Purchased ~ .,
+                   data = training_set)
+```
+
 Plotting the tree
 ```{r , include=TRUE, fig.width=10, fig.height=7}
 plot(classifier)
