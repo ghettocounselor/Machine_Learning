@@ -1,22 +1,20 @@
 ---
-title: "Random Forest in a prediction model"
+title: "Random Forest prediction model in R"
 output: html_document
 ---
 
 Github files; https://github.com/ghettocounselor
 
-### Random Forest also called a Decision Forest
+### Random Forest
 Intuition Lecture 126 https://www.udemy.com/machinelearning/learn/lecture/5714412
 
-Lecutre 128 https://www.udemy.com/machinelearning/learn/lecture/5765754
+Lecutre 129 https://www.udemy.com/machinelearning/learn/lecture/5771094
 
-Random Forest algorithms are using decisions trees about splitting the data into classifications to then have an algorithm that will predict where new points of data will land. Those classifications are based on values of the independent and dependent variables. Now, that's the decision tree process; the forest is multiple trees! Each tree is a random subset of the data. You can have a Random Forest that is a collection of the same tree or a collection of many types of trees working as one forest. 
+Decision tree algorithms are about splitting the data into classifications to then have an algorithm that will predict where new points of data will land. Those classifications are based on values of the independent and dependent variables. 
 
-# interesting real world uses
-Microsoft xbox https://www.youtube.com/watch?v=lntbRsi8lU8
+Random forests are about having multiple trees, a forest of trees. Those trees can all be of the same type or algorithm or the forest can be made up of a mixture of tree types (algorithms). There are some very interesting further metaphorical thoughts that describe how the forest acts (decides). 
 
-Microsoft Real-Time Human Pose recognition https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/BodyPartRecognition.pdf
-
+Again as with Decision Trees the Random Forest is not based on euclidian distances but rather classifications. 
 
 Check Working directory getwd() to always know where you are working. 
 ```{r, include=FALSE}
@@ -72,32 +70,22 @@ head(training_set)
 # Fitting Decision Tree to the Training set
 Things are a little different here, we don't need formula, and other features we just need x and y. x will be the independent variables (hence the datase -3 removing the column we don't need), y is the dependent variable. 
 ```{r , include=TRUE}
-# install.packages('rpart')
-library(rpart)
-classifier = rpart(formula = Purchased ~ .,
-                   data = training_set)
+# install.packages('randomForest')
+library(randomForest)
+classifier = randomForest(x = training_set[-3],
+                          y = training_set$Purchased,
+                          ntree = 500, random_state = 0)
 ```
 
-# Predict the Test set results - Decision Tree 
+# Predict the Test set results - Random Forest 
 Because of the slight variation in structure of the decision tree we need to add the type = class. 
 ```{r , include=TRUE}
 y_pred = predict(classifier, newdata = test_set[-3])
 ```
-Note; it's a Matrix!
-And it's a matrix of probabilities, column 0 is the probability the user will buy the SUV and column 1 is the probability that the user would buy the SUV. 
-```{r , include=TRUE}
-head(y_pred)
-```
-
-Let's fix that. 
-```{r , include=TRUE}
-y_pred = predict(classifier, newdata = test_set[-3], type = 'class')
-```
-Let's look
+Let's have a look 
 ```{r , include=TRUE}
 y_pred
 ```
-
 
 # Making the Confusion Matrix - Decision Tree 
 Now we have the normal CM because we added the class
@@ -123,7 +111,7 @@ y_grid = predict(classifier, newdata = grid_set, type = 'class')
 # that's the end of the background
 # now we plat the actual data 
 plot(set[, -3],
-     main = 'Decision Tree (Training set)',
+     main = 'Random Forest classification (Training set)',
      xlab = 'Age', ylab = 'Estimated Salary',
      xlim = range(X1), ylim = range(X2)) # this bit creates the limits to the values plotted this is also a part of the MAGIC as it creates the line between green and red
 contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
@@ -144,16 +132,13 @@ grid_set = expand.grid(X1, X2)
 colnames(grid_set) = c('Age', 'EstimatedSalary')
 # NOTE we need class here because we have a y_grid is a matrix!
 y_grid = predict(classifier, newdata = grid_set, type = 'class')
-plot(set[, -3], main = 'Decision Tree (Test set)',
+plot(set[, -3], main = 'Random Forest classification (Test set)',
      xlab = 'Age', ylab = 'Estimated Salary',
      xlim = range(X1), ylim = range(X2))
 contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
 points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
 points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
 ```
-
-# Understanding or seeing overfitting; 
-In the Training graphs if we see peculiar groupings of Red (for instance). These in and of themselves are not troublesome, however when we then use the classifier on the Test set we find that not only are those areas prone to not including any accurate predictions, as in there is nothing there, what we also see is mistakes, where green dots are shown in these peculiar areas. This is indicative of over fitting of our Forest on the Training data, as in the forest has gotten more accustomed to the data than to the probability of the context of the data, so to speak. 
 
 # Added bonus let's visualize the Decsion Trees
 However we need to take the feature scaling out so we can read the splits :D
@@ -178,13 +163,13 @@ test_set = subset(dataset, split == FALSE)
 
 ```{r , include=TRUE}
 # install.packages('rpart')
-library(rpart)
-classifier = rpart(formula = Purchased ~ .,
-                   data = training_set)
+library(randomForest)
+classifier = randomForest(x = training_set[-3],
+                          y = training_set$Purchased,
+                          ntree = 500, random_state = 0)
 ```
 
-Plotting the tree
+Plotting the tree; hmm... not sure what to make of that, it's interesting. 
 ```{r , include=TRUE, fig.width=10, fig.height=7}
 plot(classifier)
-text(classifier)
 ```
