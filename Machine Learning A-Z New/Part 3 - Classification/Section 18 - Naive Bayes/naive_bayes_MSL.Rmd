@@ -8,10 +8,15 @@ Github files; https://github.com/ghettocounselor
 ### Naive Bayes
 Naive Bayes - is an algorithm used in a popular model
 Explained across a couple of lectures, pretty striaght forward idea
+
 Lecture 115 https://www.udemy.com/machinelearning/learn/lecture/5732736 
+
 Lecture 116 https://www.udemy.com/machinelearning/learn/lecture/5732738
+
 Lecture 117 https://www.udemy.com/machinelearning/learn/lecture/5732740
+
 Lecture 118 https://www.udemy.com/machinelearning/learn/lecture/5732742
+
 R Lecture 121 https://www.udemy.com/machinelearning/learn/lecture/5754212 
 
 As most things ML this is really about probability of something happening based on previous knowledge (aprior), aka previous experperience.
@@ -90,6 +95,10 @@ y_pred
 ```{r , include=TRUE}
 cm = table(test_set[, 3], y_pred)
 cm
+```
+
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("/Users/markloessi/Machine_Learning/Confusion_Matrix_Explained.png")
 ```
 
 # Visualising the Training set results - Naive Bayes

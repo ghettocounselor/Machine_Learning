@@ -100,6 +100,11 @@ cm # not bad 83 correct predictions and 17 incorrect predictions
 # 0    57    7
 # 1    10   26
 
+# FOR RMD FILE TO INCLUDE CM EXPLANATION
+# ```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+# knitr::include_graphics("/Users/markloessi/Machine_Learning/Confusion_Matrix_Explained.png")
+#```
+
 # Visualising the Training set results
 #
 # for K-NN we will need to change some things

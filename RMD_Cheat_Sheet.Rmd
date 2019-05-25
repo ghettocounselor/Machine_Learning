@@ -1,0 +1,28 @@
+---
+title: "RMD_Cheat_Sheet"
+output: html_document
+---
+
+## R Markdown cheat sheet
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+## Summarize data
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+```{r, echo=TRUE}
+#plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Include an image
+
+```{r pressure, echo=TRUE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("/Users/markloessi/Machine_Learning/Confusion_Matrix_Explained.png")
+```

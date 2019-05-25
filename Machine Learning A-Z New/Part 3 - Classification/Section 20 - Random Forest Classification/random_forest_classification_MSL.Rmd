@@ -94,6 +94,10 @@ cm = table(test_set[, 3], y_pred)
 cm
 ```
 
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("/Users/markloessi/Machine_Learning/Confusion_Matrix_Explained.png")
+```
+
 # Visualising the Training set results - Decision Tree 
 ```{r , include=TRUE, fig.width=10, fig.height=7}
 library(ElemStatLearn)

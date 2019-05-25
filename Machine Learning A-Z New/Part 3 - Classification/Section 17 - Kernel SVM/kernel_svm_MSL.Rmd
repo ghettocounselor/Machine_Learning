@@ -19,7 +19,7 @@ lecture 111 - Types of functions (Kernels) - see image
 https://www.udemy.com/machinelearning/learn/lecture/6113152
 
 Lots of examples of Kernel application see Google Images search 
-search https://www.google.com/search?biw=1409&bih=758&tbm=isch&sa=1&ei=J2PhXMHJJtDUsAW_n6_AAQ&q=machine+learning+kernel+example&oq=machine+learning+kernel+example&gs_l=img.12...0.0..15042...0.0..0.0.0.......1......gws-wiz-img.v0zg2PyWs6o
+search <https://www.google.com/search?biw=1409&bih=758&tbm=isch&sa=1&ei=J2PhXMHJJtDUsAW_n6_AAQ&q=machine+learning+kernel+example&oq=machine+learning+kernel+example&gs_l=img.12...0.0..15042...0.0..0.0.0.......1......gws-wiz-img.v0zg2PyWs6o>
 
 Basic idea here is that not everything (data) can be separated by a linear model. Because of this we need more complex processing; one step is to "Map Higher Dimensions" This process will 'increase the dimensionality'. In order to not consume huge computational resources we can use The Kernel Trick! Which really simply means we'll use a Kernel to do the work, no trick at all!
 
@@ -126,6 +126,10 @@ cmR
 ```{r , include=TRUE}
 cmL = table(test_set[, 3], y_predL)
 cmL
+```
+
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("/Users/markloessi/Machine_Learning/Confusion_Matrix_Explained.png")
 ```
 
 # Visualising the Training set results - Radial

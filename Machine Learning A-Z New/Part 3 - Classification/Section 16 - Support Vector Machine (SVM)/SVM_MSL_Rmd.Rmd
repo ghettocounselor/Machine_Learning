@@ -82,6 +82,11 @@ y_predL = predict(classifierL, newdata = test_set[-3])
 cmL = table(test_set[, 3], y_predL)
 cmL
 ```
+
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("/Users/markloessi/Machine_Learning/Confusion_Matrix_Explained.png")
+```
+
 # Visualising the Training set results
 ```{r , include=TRUE}
 library(ElemStatLearn)
