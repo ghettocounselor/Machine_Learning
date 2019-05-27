@@ -53,8 +53,8 @@ dataset intro, prior to creating the Sparse Matrix.
 knitr::include_graphics("Apriori_Dataset_Intro.png")
 ```
 # Sparse Matrix
-We'll create a Sparse Matrix using the arules package. https://en.wikipedia.org/wiki/Sparse_matrix
-```{r , include=TRUE}
+We need to import the dataset in a particular way. We have an array, but what apriori is expecting is a list of lists. So, we need to remove all the nulls from each row and create a list of lists of all the items for each transaction. To do this we'll create a Sparse Matrix using the arules package. https://en.wikipedia.org/wiki/Sparse_matrix
+```{r , message=FALSE,  include=TRUE}
 # install.packages('arules')
 library(arules)
 # rm.duplicates is to remove duplicates because the Apriori algorithm cannot have duplicates

@@ -223,16 +223,10 @@ A caption
 </div>
 <div id="sparse-matrix" class="section level1">
 <h1>Sparse Matrix</h1>
-<p>We’ll create a Sparse Matrix using the arules package. <a href="https://en.wikipedia.org/wiki/Sparse_matrix" class="uri">https://en.wikipedia.org/wiki/Sparse_matrix</a></p>
+<p>We need to import the dataset in a particular way. We have an array, but what apriori is expecting is a list of lists. So, we need to remove all the nulls from each row and create a list of lists of all the items for each transaction. To do this we’ll create a Sparse Matrix using the arules package. <a href="https://en.wikipedia.org/wiki/Sparse_matrix" class="uri">https://en.wikipedia.org/wiki/Sparse_matrix</a></p>
 <pre class="r"><code># install.packages('arules')
-library(arules)</code></pre>
-<pre><code>## Loading required package: Matrix</code></pre>
-<pre><code>## 
-## Attaching package: 'arules'</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     abbreviate, write</code></pre>
-<pre class="r"><code># rm.duplicates is to remove duplicates because the Apriori algorithm cannot have duplicates
+library(arules)
+# rm.duplicates is to remove duplicates because the Apriori algorithm cannot have duplicates
 dataset = read.transactions('Market_Basket_Optimisation.csv', sep = ',', rm.duplicates = TRUE)</code></pre>
 <pre><code>## distribution of transactions with duplicates:
 ## 1 
@@ -325,10 +319,10 @@ A caption
 ## Absolute minimum support count: 22 
 ## 
 ## set item appearances ...[0 item(s)] done [0.00s].
-## set transactions ...[119 item(s), 7501 transaction(s)] done [0.00s].
+## set transactions ...[119 item(s), 7501 transaction(s)] done [0.01s].
 ## sorting and recoding items ... [115 item(s)] done [0.00s].
-## creating transaction tree ... done [0.00s].
-## checking subsets of size 1 2 3 4 5 done [0.00s].
+## creating transaction tree ... done [0.01s].
+## checking subsets of size 1 2 3 4 5 done [0.01s].
 ## writing ... [281 rule(s)] done [0.00s].
 ## creating S4 object  ... done [0.00s].</code></pre>
 <p>Ok, that’s better writing … [281 rule(s)] done [0.00s]. We’ll move forward here with this onto Step 4.</p>
@@ -384,10 +378,10 @@ A caption
 ## Absolute minimum support count: 22 
 ## 
 ## set item appearances ...[0 item(s)] done [0.00s].
-## set transactions ...[119 item(s), 7501 transaction(s)] done [0.00s].
+## set transactions ...[119 item(s), 7501 transaction(s)] done [0.01s].
 ## sorting and recoding items ... [115 item(s)] done [0.00s].
 ## creating transaction tree ... done [0.00s].
-## checking subsets of size 1 2 3 4 5 done [0.00s].
+## checking subsets of size 1 2 3 4 5 done [0.01s].
 ## writing ... [1348 rule(s)] done [0.00s].
 ## creating S4 object  ... done [0.00s].</code></pre>
 <p>writing … [1348 rule(s)] done [0.00s]. That’s alot more rules :-) and that’s expected.</p>
@@ -443,12 +437,12 @@ A caption
 ## Absolute minimum support count: 30 
 ## 
 ## set item appearances ...[0 item(s)] done [0.00s].
-## set transactions ...[119 item(s), 7501 transaction(s)] done [0.00s].
+## set transactions ...[119 item(s), 7501 transaction(s)] done [0.01s].
 ## sorting and recoding items ... [114 item(s)] done [0.00s].
 ## creating transaction tree ... done [0.00s].
-## checking subsets of size 1 2 3 4 done [0.00s].
+## checking subsets of size 1 2 3 4 done [0.01s].
 ## writing ... [811 rule(s)] done [0.00s].
-## creating S4 object  ... done [0.00s].</code></pre>
+## creating S4 object  ... done [0.01s].</code></pre>
 <p>writing … [811 rule(s)] done [0.00s]. Let’s look at 20 rules this time.</p>
 <pre class="r"><code>inspect(sort(rules, by = 'lift')[1:20])</code></pre>
 <pre><code>##      lhs                       rhs                     support confidence     lift count

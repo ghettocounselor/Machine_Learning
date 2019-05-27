@@ -21,6 +21,8 @@ summary(cars)
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
+If you don't want to see warnings 'message=FALSE' 
+
 ## Include an image
 
 ```{r pressure, echo=TRUE, fig.cap="A caption", out.width = '100%'}

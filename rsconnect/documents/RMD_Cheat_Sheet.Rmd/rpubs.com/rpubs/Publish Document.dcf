@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/498880/83d6e8618f6c4b56932b7f481b0b3b2b
+bundleId: https://api.rpubs.com/api/v1/document/498880/83d6e8618f6c4b56932b7f481b0b3b2b
+url: http://rpubs.com/markloessi/498880
+when: 1558955164.21205
