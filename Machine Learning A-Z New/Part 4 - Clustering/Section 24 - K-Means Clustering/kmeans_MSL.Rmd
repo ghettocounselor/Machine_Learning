@@ -2,15 +2,14 @@
 title: "KMeans Clustering in R"
 output: html_document
 ---
-Github files; https://github.com/ghettocounselor
-
 # K Means Clustering
 K Means Intuition Lecture 137 https://www.udemy.com/machinelearning/learn/lecture/5714416
 
 https://en.wikipedia.org/wiki/K-means_clustering
 
 # Understanding K Means Random Initialization Trap 
-Lecture 138 https://www.udemy.com/machinelearning/learn/lecture/5714420 This references the idea that our selection of the initial centroids can impact the end result of our clusters. The solution to this is K-Means++ which is something that thankfully is included in the background of the K means cluster algorithms that are available. We use the K-Means++ function to generate the WCSS which is then interpreted to come up with the best number of clusters to use. 
+Lecture 138 https://www.udemy.com/machinelearning/learn/lecture/5714420 
+This references the idea that our selection of the initial centroids can impact the end result of our clusters. The solution to this is K-Means++ which is something that thankfully is included in the background of the K means cluster algorithms that are available. We use the K-Means++ function to generate the WCSS which is then interpreted to come up with the best number of clusters to use. 
 
 ## WCSS - Within Cluster Sum of Squares
 K Means Selecting the number of clusters Lecture 139 https://www.udemy.com/machinelearning/learn/lecture/5714426 
@@ -98,3 +97,8 @@ clusplot(dataset,
          ylab = 'Spending Score')
 ```
 
+=========================  
+Github files; https://github.com/ghettocounselor
+
+Useful PDF for common questions in Lectures;  
+https://github.com/ghettocounselor/Machine_Learning/blob/master/Machine-Learning-A-Z-Q-A.pdf

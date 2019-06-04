@@ -2,8 +2,6 @@
 title: "Kernel SVM - machine learning in R"
 output: html_document
 ---
-Github files; https://github.com/ghettocounselor
-
 ### Kernel SVM - Support Vector Machine (SVM)
 lecture 108 Kernel SVM intuition (what's this about) - basic idea is
 not everything is linear :) 
@@ -221,3 +219,11 @@ contour(X1, X2, matrix(as.numeric(y_gridL), length(X1), length(X2)), add = TRUE)
 points(grid_set, pch = '.', col = ifelse(y_gridL == 1, 'springgreen3', 'tomato'))
 points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
 ```
+
+=========================
+
+Github files; https://github.com/ghettocounselor
+
+Useful PDF for common questions in Lectures;
+
+https://github.com/ghettocounselor/Machine_Learning/blob/master/Machine-Learning-A-Z-Q-A.pdf

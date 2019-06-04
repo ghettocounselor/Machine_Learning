@@ -2,8 +2,6 @@
 title: "Hierarchical Clustering in R"
 output: html_document
 ---
-Github files; https://github.com/ghettocounselor
-
 # Hierarchical Clustering
 HC Intuition Lecture 143 https://www.udemy.com/machinelearning/learn/lecture/5714428
 
@@ -142,3 +140,9 @@ clusplot(dataset,
 ```{r, echo=TRUE, fig.cap="A caption", out.width = '100%'}
 knitr::include_graphics("Clustering_ProsCons.png")
 ```
+
+=========================  
+Github files; https://github.com/ghettocounselor
+
+Useful PDF for common questions in Lectures;  
+https://github.com/ghettocounselor/Machine_Learning/blob/master/Machine-Learning-A-Z-Q-A.pdf

@@ -2,8 +2,6 @@
 title: "Upper Confidence Bound in R"
 output: html_document
 ---
-Github files; https://github.com/ghettocounselor
-
 # Upper Confidence Bound - example of Reinforement Learning
 Intuition Lecture 172 https://www.udemy.com/machinelearning/learn/lecture/6456832
 
@@ -13,10 +11,11 @@ Part 1 Implement/write UCB algorithm Lecture 179 https://www.udemy.com/machinele
 
 Part 2 Implement/write UCB algorithm Lecture 180 https://www.udemy.com/machinelearning/learn/lecture/6022160
 
-Lecture 181 
+Visualize the R UCB Lecture 181
+https://www.udemy.com/machinelearning/learn/lecture/6022164 
 
-# Thompson Sampling wikipedia
-# https://papers.nips.cc/paper/4909-eluder-dimension-and-the-sample-complexity-of-optimistic-exploration.pdf
+Thompson Sampling wikipedia
+https://papers.nips.cc/paper/4909-eluder-dimension-and-the-sample-complexity-of-optimistic-exploration.pdf
 
 check working directory getwd()
 ```{r, include=FALSE}
@@ -27,7 +26,11 @@ getwd()
 ```{r , include=TRUE}
 dataset = read.csv('Ads_CTR_Optimisation.csv')
 ```
-
+UCB compared to Thompson Sampling  
+Lecture 183 https://www.udemy.com/machinelearning/learn/lecture/6468288
+```{r, echo=TRUE, fig.cap="UCB compared to Thompson Sampling ", out.width = '100%'}
+knitr::include_graphics("UCB_compare_ThompsonSampling.png")
+```
 What's this about
 ```{r, echo=TRUE, fig.cap="Pic from Python but same idea", out.width = '100%'}
 knitr::include_graphics("Dataset_interpretation.png")
@@ -51,6 +54,7 @@ Let's have a look at the total rewards calculated at random.
 total_reward
 ```
 # Visualising the results - RANDOM
+As we expect it's Random!
 ```{r , include=TRUE, fig.width=10, fig.height=7}
 hist(ads_selected,
      col = 'blue',
@@ -64,6 +68,10 @@ knitr::include_graphics("UCB_Algorithm_Slide.png")
 ```
 # Implementing UCB - to compare to random
 Lecture 179 https://www.udemy.com/machinelearning/learn/lecture/6022156
+
+Lecture 180 https://www.udemy.com/machinelearning/learn/lecture/6022160
+
+This is very interesting and a bit convoluted. 
 ```{r , include=TRUE}
 N = 10000 # step 2 bit
 d = 10 # step 1 & 2 bit
@@ -93,13 +101,22 @@ for (n in 1:N) { # step 2 bit we'll go through earch round/row stating at 1 and 
     }
   }
   ads_selected = append(ads_selected, ad) # step 3 bit to continuously add to vector
-  numbers_of_selections[ad] = numbers_of_selections[ad] + 1
-  reward = dataset[n, ad]
+  numbers_of_selections[ad] = numbers_of_selections[ad] + 1 # this will keep things in the first if = 0 the first time we run and add through the for n loop and therefore we'll always skip to the else, then onto the 2nd if, until we get to the first time that ad 1 is used again, then we'll drop into the real work of the 1st if statement. 
+  reward = dataset[n, ad] # the real reward (from dataset) as we trapes through the for n 
   sums_of_rewards[ad] = sums_of_rewards[ad] + reward
   total_reward = total_reward + reward
 }
 ```
-
+What's going on there :-) see lecture 180, in addition to some notes I made in code. 
+# Visulize the ads selected data
+Let's look at the last 1000 items to see which add is looking the most common. 
+```{r , include=TRUE}
+tail(ads_selected, n = 1000)
+```
+Let's have a look at the total rewards calculated with UCB. It's much better.  
+```{r , include=TRUE}
+total_reward
+```
 # Visualising the results
 ```{r , include=TRUE, fig.width=10, fig.height=7}
 hist(ads_selected,
@@ -109,5 +126,8 @@ hist(ads_selected,
      ylab = 'Number of times each ad was selected')
 ```
 
+=========================  
+Github files; https://github.com/ghettocounselor
 
-
+Useful PDF for common questions in Lectures;  
+https://github.com/ghettocounselor/Machine_Learning/blob/master/Machine-Learning-A-Z-Q-A.pdf

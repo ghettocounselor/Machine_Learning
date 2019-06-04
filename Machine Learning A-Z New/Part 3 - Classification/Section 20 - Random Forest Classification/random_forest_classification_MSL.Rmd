@@ -2,9 +2,6 @@
 title: "Random Forest prediction model in R"
 output: html_document
 ---
-
-Github files; https://github.com/ghettocounselor
-
 ### Random Forest
 Intuition Lecture 126 https://www.udemy.com/machinelearning/learn/lecture/5714412
 
@@ -177,3 +174,9 @@ Plotting the tree; hmm... not sure what to make of that, it's interesting.
 ```{r , include=TRUE, fig.width=10, fig.height=7}
 plot(classifier)
 ```
+
+=========================  
+Github files; https://github.com/ghettocounselor
+
+Useful PDF for common questions in Lectures;  
+https://github.com/ghettocounselor/Machine_Learning/blob/master/Machine-Learning-A-Z-Q-A.pdf

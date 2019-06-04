@@ -2,9 +2,6 @@
 title: "Naive Bayes algorithm in a prediction model"
 output: html_document
 ---
-
-Github files; https://github.com/ghettocounselor
-
 ### Naive Bayes
 Naive Bayes - is an algorithm used in a popular model
 Explained across a couple of lectures, pretty striaght forward idea
@@ -146,3 +143,10 @@ points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
 points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
 ```
 
+=========================
+
+Github files; https://github.com/ghettocounselor
+
+Useful PDF for common questions in Lectures;
+
+https://github.com/ghettocounselor/Machine_Learning/blob/master/Machine-Learning-A-Z-Q-A.pdf

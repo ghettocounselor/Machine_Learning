@@ -89,3 +89,10 @@ Really there is no change in the top sets, changing the support will only change
 ```{r , include=TRUE, fig.width=10, fig.height=7}
 inspect(sort(rules, by = 'support')[1:20])
 ```
+
+
+=========================  
+Github files; https://github.com/ghettocounselor
+
+Useful PDF for common questions in Lectures;  
+https://github.com/ghettocounselor/Machine_Learning/blob/master/Machine-Learning-A-Z-Q-A.pdf

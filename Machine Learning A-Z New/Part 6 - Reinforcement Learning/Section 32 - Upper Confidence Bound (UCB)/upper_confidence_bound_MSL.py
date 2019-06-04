@@ -9,6 +9,7 @@
 # https://papers.nips.cc/paper/4909-eluder-dimension-and-the-sample-complexity-of-optimistic-exploration.pdf
 
 # also in R on RPubs http://rpubs.com/markloessi
+# Good notes and questions https://github.com/ghettocounselor/Machine_Learning/blob/master/Machine-Learning-A-Z-Q-A.pdf 
 
 # check working directory
 import os
@@ -57,6 +58,7 @@ plt.title('Histogram of ads selections')
 plt.xlabel('Ads')
 plt.ylabel('Number of times each ad was selected')
 plt.show()
+plt.savefig('RandomOutput.png')
 
 # =============================================================================
 # Implementing UCB
@@ -113,3 +115,4 @@ plt.title('Histogram of ads selections')
 plt.xlabel('Ads')
 plt.ylabel('Number of times each ad was selected')
 plt.show()
+plt.savefig('UCBOutput.png')
