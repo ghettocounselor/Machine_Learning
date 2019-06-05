@@ -9,6 +9,9 @@
 # Thompson Sampling wikipedia
 # https://papers.nips.cc/paper/4909-eluder-dimension-and-the-sample-complexity-of-optimistic-exploration.pdf
 
+# Bayesian inference
+# https://brohrer.github.io/how_bayesian_inference_works.html
+
 # also in R on RPubs http://rpubs.com/markloessi
 # Good notes and questions https://github.com/ghettocounselor/Machine_Learning/blob/master/Machine-Learning-A-Z-Q-A.pdf 
 
@@ -109,3 +112,8 @@ plt.xlabel('Ads')
 plt.ylabel('Number of times each ad was selected')
 plt.show()
 plt.savefig('ThompsonSamplingOutput.png')
+
+'''
+How is Thomson Sampling heuristic quickly able to find that 5th advertisement is the best one in comparison to the Upper Confidence Bound heuristic?
+It is hard to explain the reason theoretically, that would require to do research and write a long mathematical proof. But intuitively, it could be because UCB is based on optimistic assumptions whereas Thompson Sampling is based on relevant probabilities through the Bayesian approach.
+'''

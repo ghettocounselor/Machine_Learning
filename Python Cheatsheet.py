@@ -42,3 +42,8 @@ Image(graph.create_png())
 graph.write_pdf("decision_tree_vis.pdf")
 graph.write_png("decision_tree_vis.png")
 
+# Save image output of matplotlib (normally alias as plt)
+# after the show then use save fig
+plt.show()
+plt.savefig('RandomOutput.png')
+
