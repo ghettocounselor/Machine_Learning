@@ -91,7 +91,7 @@ Out[56]: ['wow', 'loved', 'place']
 # Lectures 196 4th stemming https://www.udemy.com/machinelearning/learn/lecture/6057780
 # we will be creating a sparse matrix in the future so we want to chop this down to the fewest 
 # words such that we have fewer columns in the sparse matix
-from nltk.stem.porter import PorterStemmer # stemming to compress words like loved and loving to love
+from nltk.stem.porter import PorterStemmer # stemming to compress words like loved, loves and loving to love. 
 # let's create an object of PorterStemmer
 ps = PorterStemmer()
 review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))]

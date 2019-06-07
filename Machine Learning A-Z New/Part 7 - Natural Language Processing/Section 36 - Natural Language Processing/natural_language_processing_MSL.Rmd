@@ -1,0 +1,196 @@
+---
+title: "Natural Language Processing in R"
+output: html_document
+---
+# Natural Language Processing - Lectures  
+Lecture 203  
+https://www.udemy.com/machinelearning/learn/lecture/6069684  
+Lecture 204  
+https://www.udemy.com/machinelearning/learn/lecture/6073514  
+Lecture 205  
+https://www.udemy.com/machinelearning/learn/lecture/6074630  
+Lecture 206  
+https://www.udemy.com/machinelearning/learn/lecture/6074890  
+Lecture 207  
+https://www.udemy.com/machinelearning/learn/lecture/6075148  
+Lecture 208  
+https://www.udemy.com/machinelearning/learn/lecture/6075468  
+Lecture 209  
+https://www.udemy.com/machinelearning/learn/lecture/6075784  
+Lecture 210  
+https://www.udemy.com/machinelearning/learn/lecture/6076060  
+Lecture 211  
+https://www.udemy.com/machinelearning/learn/lecture/6080678  
+Lecture 212  
+https://www.udemy.com/machinelearning/learn/lecture/6083658  
+
+check working directory getwd()
+```{r, include=FALSE}
+getwd()
+```
+
+# Importing the dataset
+The quote = '' tells things to ignore any "" in our data. 
+stringsAsFactors - logical: should character vectors be converted to factors? Note that this is overridden by as.is and colClasses, both of which allow finer control. Since we don't what the reviews to be treated as Factors we need to set this to FALSE. We'll be digging into the words of the reviews themselves so we wont' threat the 'review' as a factor. 
+```{r , include=TRUE}
+dataset_original = read.delim('Restaurant_Reviews.tsv', quote = '', stringsAsFactors = FALSE)
+```
+
+# Cleaning the texts
+We'll create a corpus https://en.wikipedia.org/wiki/Text_corpus  
+In the end we are creating a sparse matrix, and to do this well we want to remove all the un-necessary elements of the reviews. Basically we want to chop this down to the fewest words such that we have fewer columns in the sparse matix.
+```{r , include=TRUE}
+# install.packages('tm')
+# install.packages('SnowballC')
+library(tm)
+library(SnowballC)
+# initialize of the corpus
+corpus = VCorpus(VectorSource(dataset_original$Review)) # we point at the the review column
+```
+Let's have a look; 841 is a good example of many things needing to be cleaned. 
+```{r , include=TRUE}
+as.character(corpus[[841]])
+```
+The rest of the cleaning follows the same idea for the various processes we wish to execute on our data. 
+```{r , include=TRUE}
+corpus = tm_map(corpus, content_transformer(tolower)) # make all words lower case
+corpus = tm_map(corpus, removeNumbers) # remove numbers
+corpus = tm_map(corpus, removePunctuation) # take out puncutation
+corpus = tm_map(corpus, removeWords, stopwords()) # use stopwards library to clean off words
+corpus = tm_map(corpus, stemDocument) # stem will transalte loved, loving, loves, etc... to love
+corpus = tm_map(corpus, stripWhitespace) # some of the above steps will have added extra spaces into our data
+```
+Let's look again. Interestingly really was changed to realli (this is OK) I believe the stem function does that on purpose because of the fact that a lot of words that end in "y" are adjectives that change to an "i" in other forms. Like, the word "pretty" would be changed to "pretti" because "pretty","prettier", and "prettiest" are all essentially the same for this kind of analysis.
+```{r , include=TRUE}
+as.character(corpus[[841]])
+```
+
+# Creating the Bag of Words model
+https://en.wikipedia.org/wiki/Bag-of-words_model  
+https://www.r-bloggers.com/using-sparse-matrices-in-r/  
+A bag of words is where the rows are the reviews and the columns are the unique words. Each cell will hold a number for the number of times that the word represented by the column appears in that review.  
+```{r , include=TRUE}
+dtm = DocumentTermMatrix(corpus) # this creates the rows and columns with the data
+```
+Let's have a look at some details of dtm before we continue
+```{r , include=TRUE}
+dtm
+```
+Let's check rows and columns. 
+```{r , include=TRUE}
+nrow(dtm)
+ncol(dtm)
+```
+
+Let's clean off 0.1 % of words, leaving 99.9% of the most common words. The % we use is an art, as it is influenced by things such as the number of instances of the data you have. 
+```{r , include=TRUE}
+dtm = removeSparseTerms(dtm, 0.999) # here we'll remove some of the less frequent words dtm
+```
+
+Let's have a look at some details of dtm again before we continue
+```{r , include=TRUE}
+dtm
+```
+Let's check rows and columns again. 
+```{r , include=TRUE}
+nrow(dtm)
+ncol(dtm)
+```
+# Change our dataset into a dataframe
+Our model will require a dataframe. 
+```{r , include=TRUE}
+dataset = as.data.frame(as.matrix(dtm))
+```
+Have a quick look at rough structure. 
+```{r , include=TRUE}
+head(dataset, 2)
+```
+Remembering that our dtm was only the review content (independent variables) we need to add the liked variable (dependent variable). 
+```{r , include=TRUE}
+# 1st bit adds new column Liked and 2nd bit gets the data from the original dataset data
+dataset$Liked = dataset_original$Liked
+```
+
+# Our Dataset is now ready!
+
+# Encoding the target feature (Liked) as factor
+```{r , include=TRUE}
+dataset$Liked = factor(dataset$Liked, levels = c(0, 1))
+```
+
+# Splitting the dataset into the Training set and Test set
+```{r , include=TRUE}
+# install.packages('caTools')
+library(caTools)
+set.seed(123)
+split = sample.split(dataset$Liked, SplitRatio = 0.8)
+training_set = subset(dataset, split == TRUE)
+test_set = subset(dataset, split == FALSE)
+```
+
+# Feature scalling is not needed as we only have 0 and 1's there are no units
+
+# Fitting Random Forest Classification to the Training set
+The idea is that we want to have a classification model that will learn the correlations between the words in the review and whether it was liked or not. With this classification model in hand we can then use the model to determine if a future review will indicate if the (restuarant in this case) was positive (liked) or not. 
+```{r , include=TRUE}
+# install.packages('randomForest')
+library(randomForest)
+classifier = randomForest(x = training_set[-688], # in x we need to remove the dependent variable which is the last column liked, in our case 688, in lecture it was 692 
+                          y = training_set$Liked,
+                          ntree = 10) # number of trees
+```
+
+# Predicting the Test set results
+Using the Test Set we'll predict
+```{r , include=TRUE}
+y_pred = predict(classifier, newdata = test_set[-688])
+```
+
+# Making the Confusion Matrix
+```{r , include=TRUE}
+cm = table(test_set[, 688], y_pred)
+```
+
+```{r , include=TRUE}
+cm
+```
+
+```{r, echo=TRUE, fig.cap="UCB steps from lecture", out.width = '100%'}
+knitr::include_graphics("Confusion_Matrix_Explained.png")
+```
+# Evaluation of Performance
+Evaluate the performance of each of these models; Accuracy is not enough, so you should also look at other performance metrics like Precision (measuring exactness), Recall (measuring completeness) and the F1 Score (compromise between Precision and Recall).  
+Root-mean-square deviation is another way to measure performance.  
+https://en.wikipedia.org/wiki/Root-mean-square_deviation  
+
+Another good source of data on metrics to measure model effectiveness by.   
+https://medium.com/usf-msds/choosing-the-right-metric-for-machine-learning-models-part-1-a99d7d7414e4  In discussing the usefulness of a model then we need to see that it depends on each error metric depending on the objective and the problem we are trying to solve. When someone tells you that “USA is the best country”, the first question that you should ask is on what basis is this statement being made. Are we judging each country on the basis of their economic status, or their health facilities etc.? Similarly each machine learning model is trying to solve a problem with a different objective using a different dataset and hence, it is important to understand the context before choosing a metric.
+
+# Let's look at some measures of our Model's performance
+ 76 - TP = # True Positives  
+ 71 - TN = # True Negatives  
+ 24 - FP = # False Positives  
+ 29 - FN = # False Negatives  
+
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+```{r , include=TRUE}
+(76+71)/200
+```
+Precision = TP / (TP + FP)
+```{r , include=TRUE}
+76/(76+24)
+```
+Recall = TP / (TP + FN)
+```{r , include=TRUE}
+76/(76+29)
+```
+F1 Score = 2 * Precision * Recall / (Precision + Recall)
+```{r , include=TRUE}
+(2*0.76*0.7238095)/(0.76+0.7238095)
+```
+
+=========================  
+Github files; https://github.com/ghettocounselor
+
+Useful PDF for common questions in Lectures;  
+https://github.com/ghettocounselor/Machine_Learning/blob/master/Machine-Learning-A-Z-Q-A.pdf
