@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://neuralnetworksanddeeplearning.com/ -->
+<html lang="en" class="gr__neuralnetworksanddeeplearning_com"><!-- Produced from a LaTeX source file.  Note that the production is done --><!-- by a very rough-and-ready (and buggy) script, so the HTML and other  --><!-- code is quite ugly!  Later versions should be better.                --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="citation_title" content="Neural Networks and Deep Learning">
+    <meta name="citation_author" content="Nielsen, Michael A.">
+    <meta name="citation_publication_date" content="2015">
+    <meta name="citation_fulltext_html_url" content="http://neuralnetworksanddeeplearning.com">
+    <meta name="citation_publisher" content="Determination Press">
+    <meta name="citation_fulltext_world_readable" content="">
+    <link rel="icon" href="http://neuralnetworksanddeeplearning.com/nnadl_favicon.ICO">
+    <title>Neural networks and deep learning</title>
+    <script async="" src="./Neural networks and deep learning - Ebook_files/analytics.js"></script><script src="./Neural networks and deep learning - Ebook_files/jquery.min.js"></script>
+    <script type="text/x-mathjax-config;executed=true">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$']]},
+        "HTML-CSS": 
+          {scale: 92},
+        TeX: { equationNumbers: { autoNumber: "AMS" }}});
+    </script>
+    <script type="text/javascript" src="./Neural networks and deep learning - Ebook_files/MathJax.js"></script>
+
+
+    <link href="./Neural networks and deep learning - Ebook_files/style.css" rel="stylesheet">
+    <link href="./Neural networks and deep learning - Ebook_files/pygments.css" rel="stylesheet">
+    <link rel="stylesheet" href="./Neural networks and deep learning - Ebook_files/jquery-ui.css">
+
+<style>
+/* Adapted from */
+/* https://groups.google.com/d/msg/mathjax-users/jqQxrmeG48o/oAaivLgLN90J, */
+/* by David Cervone */
+
+@font-face {
+    font-family: 'MJX_Math';
+    src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot'); /* IE9 Compat Modes */
+    src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot?iefix') format('eot'),
+    url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff')  format('woff'),
+    url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf')  format('opentype'),
+    url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/svg/MathJax_Math-Italic.svg#MathJax_Math-Italic') format('svg');
+}
+
+@font-face {
+    font-family: 'MJX_Main';
+    src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot'); /* IE9 Compat Modes */
+    src: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot?iefix') format('eot'),
+    url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff')  format('woff'),
+    url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf')  format('opentype'),
+    url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/svg/MathJax_Main-Regular.svg#MathJax_Main-Regular') format('svg');
+}
+</style>
+
+  <style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Blank; src: url('about:blank')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+  <body data-gr-c-s-loaded="true" style=""><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"><br></div></div><div id="MathJax_Message" style="display: none;"></div><div class="nonumber_header"><h2><a href="http://neuralnetworksanddeeplearning.com/index.html">Neural Networks and Deep Learning</a></h2></div><div class="section"><div id="toc"> 
+<p class="toc_title"><a href="http://neuralnetworksanddeeplearning.com/index.html">Neural Networks and Deep Learning</a></p><p class="toc_not_mainchapter"><a href="http://neuralnetworksanddeeplearning.com/about.html">What this book is about</a></p><p class="toc_not_mainchapter"><a href="http://neuralnetworksanddeeplearning.com/exercises_and_problems.html">On the exercises and problems</a></p><p class="toc_mainchapter"><a id="toc_using_neural_nets_to_recognize_handwritten_digits_reveal" class="toc_reveal" onmouseover="this.style.borderBottom=&#39;1px solid #2A6EA6&#39;;" onmouseout="this.style.borderBottom=&#39;0px&#39;;"><img id="toc_img_using_neural_nets_to_recognize_handwritten_digits" src="./Neural networks and deep learning - Ebook_files/arrow.png" width="15px"></a><a href="http://neuralnetworksanddeeplearning.com/chap1.html">Using neural nets to recognize handwritten digits</a></p><div id="toc_using_neural_nets_to_recognize_handwritten_digits" style="display: none;"><p class="toc_section"></p><ul><a href="http://neuralnetworksanddeeplearning.com/chap1.html#perceptrons"><li>Perceptrons</li></a><a href="http://neuralnetworksanddeeplearning.com/chap1.html#sigmoid_neurons"><li>Sigmoid neurons</li></a><a href="http://neuralnetworksanddeeplearning.com/chap1.html#the_architecture_of_neural_networks"><li>The architecture of neural networks</li></a><a href="http://neuralnetworksanddeeplearning.com/chap1.html#a_simple_network_to_classify_handwritten_digits"><li>A simple network to classify handwritten digits</li></a><a href="http://neuralnetworksanddeeplearning.com/chap1.html#learning_with_gradient_descent"><li>Learning with gradient descent</li></a><a href="http://neuralnetworksanddeeplearning.com/chap1.html#implementing_our_network_to_classify_digits"><li>Implementing our network to classify digits</li></a><a href="http://neuralnetworksanddeeplearning.com/chap1.html#toward_deep_learning"><li>Toward deep learning</li></a></ul><p></p></div>
+<script>
+$('#toc_using_neural_nets_to_recognize_handwritten_digits_reveal').click(function() { 
+   var src = $('#toc_img_using_neural_nets_to_recognize_handwritten_digits').attr('src');
+   if(src == 'images/arrow.png') {
+     $("#toc_img_using_neural_nets_to_recognize_handwritten_digits").attr('src', 'images/arrow_down.png');
+   } else {
+     $("#toc_img_using_neural_nets_to_recognize_handwritten_digits").attr('src', 'images/arrow.png');
+   };
+   $('#toc_using_neural_nets_to_recognize_handwritten_digits').toggle('fast', function() {});  
+});</script><p class="toc_mainchapter"><a id="toc_how_the_backpropagation_algorithm_works_reveal" class="toc_reveal" onmouseover="this.style.borderBottom=&#39;1px solid #2A6EA6&#39;;" onmouseout="this.style.borderBottom=&#39;0px&#39;;"><img id="toc_img_how_the_backpropagation_algorithm_works" src="./Neural networks and deep learning - Ebook_files/arrow.png" width="15px"></a><a href="http://neuralnetworksanddeeplearning.com/chap2.html">How the backpropagation algorithm works</a></p><div id="toc_how_the_backpropagation_algorithm_works" style="display: none;"><p class="toc_section"></p><ul><a href="http://neuralnetworksanddeeplearning.com/chap2.html#warm_up_a_fast_matrix-based_approach_to_computing_the_output_from_a_neural_network"><li>Warm up: a fast matrix-based approach to computing the output
+  from a neural network</li></a><a href="http://neuralnetworksanddeeplearning.com/chap2.html#the_two_assumptions_we_need_about_the_cost_function"><li>The two assumptions we need about the cost function</li></a><a href="http://neuralnetworksanddeeplearning.com/chap2.html#the_hadamard_product_$s_\odot_t$"><li>The Hadamard product, <span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mo&gt;&amp;#x2299;&lt;/mo&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 1.963em; display: inline-block;"><span style="display: inline-block; position: relative; width: 1.914em; height: 0px; font-size: 102%;"><span style="position: absolute; clip: rect(1.767em, 1001.91em, 2.748em, -999.998em); top: -2.498em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3" style="font-family: STIXGeneral-Italic;">s</span><span class="mo" id="MathJax-Span-4" style="font-family: STIXGeneral-Regular; padding-left: 0.248em;">⊙</span><span class="mi" id="MathJax-Span-5" style="font-family: STIXGeneral-Italic; padding-left: 0.248em;">t<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.002em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.502em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.148em; border-left: 0px solid; width: 0px; height: 0.802em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>s</mi><mo>⊙</mo><mi>t</mi></math></span></span><script type="math/tex" id="MathJax-Element-1">s \odot t</script></li></a><a href="http://neuralnetworksanddeeplearning.com/chap2.html#the_four_fundamental_equations_behind_backpropagation"><li>The four fundamental equations behind backpropagation</li></a><a href="http://neuralnetworksanddeeplearning.com/chap2.html#proof_of_the_four_fundamental_equations_(optional)"><li>Proof of the four fundamental equations (optional)</li></a><a href="http://neuralnetworksanddeeplearning.com/chap2.html#the_backpropagation_algorithm"><li>The backpropagation algorithm</li></a><a href="http://neuralnetworksanddeeplearning.com/chap2.html#the_code_for_backpropagation"><li>The code for backpropagation</li></a><a href="http://neuralnetworksanddeeplearning.com/chap2.html#in_what_sense_is_backpropagation_a_fast_algorithm"><li>In what sense is backpropagation a fast algorithm?</li></a><a href="http://neuralnetworksanddeeplearning.com/chap2.html#backpropagation_the_big_picture"><li>Backpropagation: the big picture</li></a></ul><p></p></div>
+<script>
+$('#toc_how_the_backpropagation_algorithm_works_reveal').click(function() { 
+   var src = $('#toc_img_how_the_backpropagation_algorithm_works').attr('src');
+   if(src == 'images/arrow.png') {
+     $("#toc_img_how_the_backpropagation_algorithm_works").attr('src', 'images/arrow_down.png');
+   } else {
+     $("#toc_img_how_the_backpropagation_algorithm_works").attr('src', 'images/arrow.png');
+   };
+   $('#toc_how_the_backpropagation_algorithm_works').toggle('fast', function() {});  
+});</script><p class="toc_mainchapter"><a id="toc_improving_the_way_neural_networks_learn_reveal" class="toc_reveal" onmouseover="this.style.borderBottom=&#39;1px solid #2A6EA6&#39;;" onmouseout="this.style.borderBottom=&#39;0px&#39;;"><img id="toc_img_improving_the_way_neural_networks_learn" src="./Neural networks and deep learning - Ebook_files/arrow.png" width="15px"></a><a href="http://neuralnetworksanddeeplearning.com/chap3.html">Improving the way neural networks learn</a></p><div id="toc_improving_the_way_neural_networks_learn" style="display: none;"><p class="toc_section"></p><ul><a href="http://neuralnetworksanddeeplearning.com/chap3.html#the_cross-entropy_cost_function"><li>The cross-entropy cost function</li></a><a href="http://neuralnetworksanddeeplearning.com/chap3.html#overfitting_and_regularization"><li>Overfitting and regularization</li></a><a href="http://neuralnetworksanddeeplearning.com/chap3.html#weight_initialization"><li>Weight initialization</li></a><a href="http://neuralnetworksanddeeplearning.com/chap3.html#handwriting_recognition_revisited_the_code"><li>Handwriting recognition revisited: the code</li></a><a href="http://neuralnetworksanddeeplearning.com/chap3.html#how_to_choose_a_neural_network&#39;s_hyper-parameters"><li>How to choose a neural network's hyper-parameters?</li></a><a href="http://neuralnetworksanddeeplearning.com/chap3.html#other_techniques"><li>Other techniques</li></a></ul><p></p></div>
+<script>
+$('#toc_improving_the_way_neural_networks_learn_reveal').click(function() { 
+   var src = $('#toc_img_improving_the_way_neural_networks_learn').attr('src');
+   if(src == 'images/arrow.png') {
+     $("#toc_img_improving_the_way_neural_networks_learn").attr('src', 'images/arrow_down.png');
+   } else {
+     $("#toc_img_improving_the_way_neural_networks_learn").attr('src', 'images/arrow.png');
+   };
+   $('#toc_improving_the_way_neural_networks_learn').toggle('fast', function() {});  
+});</script><p class="toc_mainchapter"><a id="toc_a_visual_proof_that_neural_nets_can_compute_any_function_reveal" class="toc_reveal" onmouseover="this.style.borderBottom=&#39;1px solid #2A6EA6&#39;;" onmouseout="this.style.borderBottom=&#39;0px&#39;;"><img id="toc_img_a_visual_proof_that_neural_nets_can_compute_any_function" src="./Neural networks and deep learning - Ebook_files/arrow.png" width="15px"></a><a href="http://neuralnetworksanddeeplearning.com/chap4.html">A visual proof that neural nets can compute any function</a></p><div id="toc_a_visual_proof_that_neural_nets_can_compute_any_function" style="display: none;"><p class="toc_section"></p><ul><a href="http://neuralnetworksanddeeplearning.com/chap4.html#two_caveats"><li>Two caveats</li></a><a href="http://neuralnetworksanddeeplearning.com/chap4.html#universality_with_one_input_and_one_output"><li>Universality with one input and one output</li></a><a href="http://neuralnetworksanddeeplearning.com/chap4.html#many_input_variables"><li>Many input variables</li></a><a href="http://neuralnetworksanddeeplearning.com/chap4.html#extension_beyond_sigmoid_neurons"><li>Extension beyond sigmoid neurons</li></a><a href="http://neuralnetworksanddeeplearning.com/chap4.html#fixing_up_the_step_functions"><li>Fixing up the step functions</li></a><a href="http://neuralnetworksanddeeplearning.com/chap4.html#conclusion"><li>Conclusion</li></a></ul><p></p></div>
+<script>
+$('#toc_a_visual_proof_that_neural_nets_can_compute_any_function_reveal').click(function() { 
+   var src = $('#toc_img_a_visual_proof_that_neural_nets_can_compute_any_function').attr('src');
+   if(src == 'images/arrow.png') {
+     $("#toc_img_a_visual_proof_that_neural_nets_can_compute_any_function").attr('src', 'images/arrow_down.png');
+   } else {
+     $("#toc_img_a_visual_proof_that_neural_nets_can_compute_any_function").attr('src', 'images/arrow.png');
+   };
+   $('#toc_a_visual_proof_that_neural_nets_can_compute_any_function').toggle('fast', function() {});  
+});</script><p class="toc_mainchapter"><a id="toc_why_are_deep_neural_networks_hard_to_train_reveal" class="toc_reveal" onmouseover="this.style.borderBottom=&#39;1px solid #2A6EA6&#39;;" onmouseout="this.style.borderBottom=&#39;0px&#39;;"><img id="toc_img_why_are_deep_neural_networks_hard_to_train" src="./Neural networks and deep learning - Ebook_files/arrow.png" width="15px"></a><a href="http://neuralnetworksanddeeplearning.com/chap5.html">Why are deep neural networks hard to train?</a></p><div id="toc_why_are_deep_neural_networks_hard_to_train" style="display: none;"><p class="toc_section"></p><ul><a href="http://neuralnetworksanddeeplearning.com/chap5.html#the_vanishing_gradient_problem"><li>The vanishing gradient problem</li></a><a href="http://neuralnetworksanddeeplearning.com/chap5.html#what&#39;s_causing_the_vanishing_gradient_problem_unstable_gradients_in_deep_neural_nets"><li>What's causing the vanishing gradient problem?  Unstable gradients in deep neural nets</li></a><a href="http://neuralnetworksanddeeplearning.com/chap5.html#unstable_gradients_in_more_complex_networks"><li>Unstable gradients in more complex networks</li></a><a href="http://neuralnetworksanddeeplearning.com/chap5.html#other_obstacles_to_deep_learning"><li>Other obstacles to deep learning</li></a></ul><p></p></div>
+<script>
+$('#toc_why_are_deep_neural_networks_hard_to_train_reveal').click(function() { 
+   var src = $('#toc_img_why_are_deep_neural_networks_hard_to_train').attr('src');
+   if(src == 'images/arrow.png') {
+     $("#toc_img_why_are_deep_neural_networks_hard_to_train").attr('src', 'images/arrow_down.png');
+   } else {
+     $("#toc_img_why_are_deep_neural_networks_hard_to_train").attr('src', 'images/arrow.png');
+   };
+   $('#toc_why_are_deep_neural_networks_hard_to_train').toggle('fast', function() {});  
+});</script><p class="toc_mainchapter"><a id="toc_deep_learning_reveal" class="toc_reveal" onmouseover="this.style.borderBottom=&#39;1px solid #2A6EA6&#39;;" onmouseout="this.style.borderBottom=&#39;0px&#39;;"><img id="toc_img_deep_learning" src="./Neural networks and deep learning - Ebook_files/arrow.png" width="15px"></a><a href="http://neuralnetworksanddeeplearning.com/chap6.html">Deep learning</a></p><div id="toc_deep_learning" style="display: none;"><p class="toc_section"></p><ul><a href="http://neuralnetworksanddeeplearning.com/chap6.html#introducing_convolutional_networks"><li>Introducing convolutional networks</li></a><a href="http://neuralnetworksanddeeplearning.com/chap6.html#convolutional_neural_networks_in_practice"><li>Convolutional neural networks in practice</li></a><a href="http://neuralnetworksanddeeplearning.com/chap6.html#the_code_for_our_convolutional_networks"><li>The code for our convolutional networks</li></a><a href="http://neuralnetworksanddeeplearning.com/chap6.html#recent_progress_in_image_recognition"><li>Recent progress in image recognition</li></a><a href="http://neuralnetworksanddeeplearning.com/chap6.html#other_approaches_to_deep_neural_nets"><li>Other approaches to deep neural nets</li></a><a href="http://neuralnetworksanddeeplearning.com/chap6.html#on_the_future_of_neural_networks"><li>On the future of neural networks</li></a></ul><p></p></div>
+<script>
+$('#toc_deep_learning_reveal').click(function() { 
+   var src = $('#toc_img_deep_learning').attr('src');
+   if(src == 'images/arrow.png') {
+     $("#toc_img_deep_learning").attr('src', 'images/arrow_down.png');
+   } else {
+     $("#toc_img_deep_learning").attr('src', 'images/arrow.png');
+   };
+   $('#toc_deep_learning').toggle('fast', function() {});  
+});</script><p class="toc_not_mainchapter"><a href="http://neuralnetworksanddeeplearning.com/sai.html">Appendix: Is there a <em>simple</em> algorithm for intelligence?</a></p><p class="toc_not_mainchapter"><a href="http://neuralnetworksanddeeplearning.com/acknowledgements.html">Acknowledgements</a></p><p class="toc_not_mainchapter"><a href="http://neuralnetworksanddeeplearning.com/faq.html">Frequently Asked Questions</a></p>
+<hr>
+<p class="sidebar"> If you benefit from the book, please make a small
+donation.  I suggest $5, but you can choose the amount.</p>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="5K9YAHR4X84RN">
+<input type="image" src="./Neural networks and deep learning - Ebook_files/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="./Neural networks and deep learning - Ebook_files/pixel.gif" width="1" height="1">
+</form>
+
+<p class="sidebar">Alternately, you can make a donation by sending me
+Bitcoin, at address <span style="font-size: 0.7em">1Kd6tXH5SDAmiFb49J9hknG5pqj7KStSAx</span></p>
+
+<!--
+<hr>
+
+<p class="sidebar"> If you benefit from the book, please make a small
+donation.  I suggest $3, but you can choose the amount.</p>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+-->
+
+<hr>
+<span class="sidebar_title">Sponsors</span>
+<br>
+
+<a href="https://www.exxactcorp.com/Deep-Learning-NVIDIA-GPU-Solutions?utm_source=neuralnetworksanddeeplearning&amp;utm_medium=banner&amp;utm_campaign=sponsors"><img src="./Neural networks and deep learning - Ebook_files/exxact.png" width="200px" style="padding: 3px 0px 0px 10px; border-style: none;"></a>
+
+<br> <div style="line-height: 1.2; padding-bottom: 12px; font-size: 0.8;">Deep
+Learning Workstations starting at $6,999: <a href="https://www.exxactcorp.com/Deep-Learning-NVIDIA-GPU-Solutions?utm_source=neuralnetworksanddeeplearning&amp;utm_medium=banner&amp;utm_campaign=sponsors"><span style="line-height: 0.8">learn more</span></a></div>
+
+<a href="http://gsquaredcapital.com/"><img src="./Neural networks and deep learning - Ebook_files/gsquared.png" width="200px" style="padding: 5px 0px 10px 10px; border-style: none;"></a>
+
+<a href="http://www.tineye.com/"><img src="./Neural networks and deep learning - Ebook_files/tineye.png" width="200px" style="padding: 0px 0px 10px 8px; border-style: none;"></a>
+
+<a href="http://www.visionsmarts.com/"><img src="./Neural networks and deep learning - Ebook_files/visionsmarts.png" width="210px" style="padding: 0px 0px
+0px 0px; border-style: none;"></a> <br> 
+
+<p class="sidebar">Thanks to all the <a href="http://neuralnetworksanddeeplearning.com/supporters.html">supporters</a> who made the book possible, with
+especial thanks to Pavel Dudrenov.  Thanks also to all the
+contributors to the <a href="http://neuralnetworksanddeeplearning.com/bugfinder.html">Bugfinder Hall of
+Fame</a>.  </p>
+
+<hr>
+<span class="sidebar_title">Resources</span>
+
+<p class="sidebar"><a href="https://twitter.com/michael_nielsen">Michael Nielsen on Twitter</a></p>
+
+<p class="sidebar"><a href="http://neuralnetworksanddeeplearning.com/faq.html">Book FAQ</a></p>
+
+<p class="sidebar">
+<a href="https://github.com/mnielsen/neural-networks-and-deep-learning">Code repository</a></p>
+
+<p class="sidebar">
+<a href="http://eepurl.com/0Xxjb">Michael Nielsen's project announcement mailing list</a>
+</p>
+
+<p class="sidebar"> <a href="http://www.deeplearningbook.org/">Deep Learning</a>, book by Ian
+Goodfellow, Yoshua Bengio, and Aaron Courville</p>
+
+<p class="sidebar"><a href="http://cognitivemedium.com/">cognitivemedium.com</a></p>
+
+<hr>
+<a href="http://michaelnielsen.org/"><img src="./Neural networks and deep learning - Ebook_files/Michael_Nielsen_Web_Small.jpg" width="160px" style="border-style: none;"></a>
+
+<p class="sidebar">
+By <a href="http://michaelnielsen.org/">Michael Nielsen</a> / Oct 2018
+</p>
+</div>
+<p>
+<em>Neural Networks and Deep Learning</em> is a free online book.  The
+book will teach you about:
+</p><ul>
+<li>Neural networks, a beautiful biologically-inspired programming
+paradigm which enables a computer to learn from observational data
+
+</li><li>Deep learning, a powerful set of techniques for learning in neural
+networks
+
+</li></ul>
+Neural networks and deep learning currently provide the best solutions
+to many problems in image recognition, speech recognition, and natural
+language processing.  This book will teach you many of the core
+concepts behind neural networks and deep learning.  
+<p></p>
+
+<p>For more details about the approach taken in the
+book, <a href="http://neuralnetworksanddeeplearning.com/about.html">see here</a>.  Or you can jump directly
+to <a href="http://neuralnetworksanddeeplearning.com/chap1.html">Chapter 1</a> and get started.
+</p><p>
+
+</p>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div><div class="footer"> <span class="left_footer"> In academic work,
+please cite this book as: Michael A. Nielsen, "Neural Networks and
+Deep Learning", Determination Press, 2015
+
+<br>
+<br>
+
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB" style="color: #eee;">Creative Commons Attribution-NonCommercial 3.0
+Unported License</a>.  This means you're free to copy, share, and
+build on this book, but not to sell it.  If you're interested in
+commercial use, please <a href="mailto:mn@michaelnielsen.org">contact me</a>.
+</span>
+<span class="right_footer">
+Last update: Tue Oct  2 11:05:11 2018
+<br>
+<br>
+<br>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_GB"><img alt="Creative Commons Licence" style="border-width:0" src="./Neural networks and deep learning - Ebook_files/88x31.png"></a>
+</span>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44208967-1', 'neuralnetworksanddeeplearning.com');
+  ga('send', 'pageview');
+
+</script>
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: STIXSizeOneSym, sans-serif;"></div></div></body><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span></html>

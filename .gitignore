@@ -1,2 +1,6 @@
 
 MiscMachineLearningDocumentation/machine-learning-project-walkthrough/
+*.gsl
+*._gs
+*.log
+*.log
