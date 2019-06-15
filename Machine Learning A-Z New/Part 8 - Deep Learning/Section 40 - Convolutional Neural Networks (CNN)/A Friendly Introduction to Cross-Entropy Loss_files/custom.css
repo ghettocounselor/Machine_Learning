@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css?family=Lustria');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
+/*
+ * There is only one notebook and notebook-container, each
+ * being an id. This is why we use the hash tag.
+ */
+
+div #notebook {
+    width: 1000px;
+}
+
+div #notebook-container {
+    width: 1000px;
+}
+
+/*
+ * Here margin: auto centers all cells, whether
+ * text, code, etc.
+ */
+
+div.cell {
+    margin: auto;
+}
+
+/*
+ * We can't just modify h1, h2, etc., because they'd end up
+ * getting overridden by other classes. Let's set up style
+ * for all text cell headers.
+ */
+
+.text_cell h1,
+.text_cell h2,
+.text_cell h3,
+.text_cell h4,
+.text_cell h5,
+.text_cell h6 {
+    font-family: 'Lustria', sans-serif;
+    font-weight: 900;
+    text-align: center;
+}
+
+.text_cell h1 { font-size: 42px; }
+.text_cell h2 { font-size: 28px; }
+.text_cell h3 { font-size: 24px; }
+.text_cell h4 { font-size: 18px; }
+.text_cell h5 { font-size: 14px; }
+.text_cell h6 { font-size: 12px; }
+
+div.text_cell {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    line-height: 30px;
+    width: 70ex;
+}
+
+div.text_cell strong {
+    font-weight: 900;
+}
+
+div.code_cell {
+    width: 900px;
+}
+
+li {
+    margin-top:0.3em;
+}
+
+div.MathJax_Display {
+    margin-top: 2ex;
+}
+
+div.input_area {
+    background-color: #FCFCFC;
+}
+
+.code_cell pre {
+    font-family: 'Source Code Pro', sans-serif;
+    font-size: 14px;
+}
+
+/*
+ * Remove the In[...] areas that mess up centering.
+ */
+
+div.prompt.input_prompt {
+    display: none;
+}
+
+/*
+ * Remove the annoying pilcrows at the end of headers.
+ */
+
+a.anchor-link {
+    display: none;
+}
