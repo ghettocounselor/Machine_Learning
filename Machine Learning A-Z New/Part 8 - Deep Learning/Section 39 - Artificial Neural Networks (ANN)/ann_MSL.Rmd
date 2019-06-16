@@ -48,12 +48,12 @@ getwd()
 ```
 
 # Importing the dataset
-```{r include=TRUE}
+```{r , include=TRUE}
 dataset = read.csv('Churn_Modelling.csv')
 ```
 
 Let's have a look at the variables. (Python image below). We have 10 Independent variables from index 4 to 13 and the Dependent variable is 14 'Exited'. Because of this we'll strip the dataset down to the group of Independent and Dependent variables only. Indexes in R start at 1. 
-```{r include=TRUE}
+```{r , include=TRUE}
 dataset = dataset[4:14]
 ```
 
@@ -63,7 +63,7 @@ knitr::include_graphics("BankCustomerData.png")
 
 # Encoding the categorical variables as factors
 Geography (country) and Gender need to be made into factors. Our dependent variable is already binary and needs no adjustment. Our deep learning package requires this processing. 
-```{r include=TRUE}
+```{r,  include=TRUE}
 dataset$Geography = as.numeric(factor(dataset$Geography,
                                       levels = c('France', 'Spain', 'Germany'),
                                       labels = c(1, 2, 3)))
@@ -74,7 +74,7 @@ dataset$Gender = as.numeric(factor(dataset$Gender,
 
 # Splitting the dataset into the Training set and Test set
 We'll train on the Training set and test on Test set
-```{r include=TRUE}
+```{r, include=TRUE}
 # install.packages('caTools')
 library(caTools)
 set.seed(123)
@@ -85,7 +85,7 @@ test_set = subset(dataset, split == FALSE)
 
 # Feature Scaling
 Needed in order to ease all the calculations we'll be doing. It is required by the package we'll be using for calculations. The -11 is to reference that we want to feature scale all the elements except the last column, the Exited column. 
-```{r include=TRUE}
+```{r , include=TRUE}
 training_set[-11] = scale(training_set[-11])
 test_set[-11] = scale(test_set[-11])
 ```
@@ -93,13 +93,13 @@ test_set[-11] = scale(test_set[-11])
 # Fitting ANN to the Training set - h2o package
 h2o package - https://cran.r-project.org/web/packages/h2o/h2o.pdf  
 Gettng H2O going.
-```{r include=TRUE}
+```{r , include=TRUE}
 # install.packages('h2o')
 library(h2o)
 h2o.init(nthreads = -1) # always use -1 if you are running on a basic computer
 ```
 # Train the model creating classifier
-```{r include=TRUE}
+```{r , include=TRUE}
 classifier = h2o.deeplearning(y = 'Exited', # y is the name of the Dependent variable
                   # we need to make an H2o dataframe because we have a plain dataframe
                          training_frame = as.h2o(training_set), 
@@ -113,26 +113,26 @@ classifier = h2o.deeplearning(y = 'Exited', # y is the name of the Dependent var
 
 # Predicting the Test set results
 This will provide us with an 'Environment'
-```{r include=TRUE}
+```{r , include=TRUE}
 prob_pred = h2o.predict(classifier, newdata = as.h2o(test_set[-11])) # -11 is the index of dependent variable. Again H2O needs a h2o dataframe
 ```
 We need to turn the propabilities provided by predict into 
-```{r include=TRUE}
+```{r , include=TRUE}
 # the 0.5 is a threshold
 # y_pred = ifelse(prod_pred > 0.5, 1, 0) # this can be written simpler as
 y_pred = (prob_pred > 0.5)
 ```
 Still an environment, so convert back to vector
-```{r include=TRUE}
+```{r , include=TRUE}
 y_pred = as.vector(y_pred)
 ```
 
 # Making the Confusion Matrix
-```{r include=TRUE}
+```{r , include=TRUE}
 cm = table(test_set[, 11], y_pred) # 11 is the index of the dependent variable
 ```
 
-```{r include=TRUE}
+```{r , include=TRUE}
 cm
 ```
 ```{r, echo=TRUE, fig.cap="UCB steps from lecture", out.width = '100%'}
@@ -144,11 +144,11 @@ TN = # True Negatives
 FP = # False Positives  
 FN = # False Negatives  
 Accuracy = (TP + TN) / (TP + TN + FP + FN)  
-```{r include=TRUE}
+```{r , include=TRUE}
 (1551 + 166) / 2000
 ```
 Shutdown of h20 server;
-```{r include=TRUE}
+```{r , include=TRUE}
 h2o.shutdown()
 ```
 
