@@ -10,6 +10,9 @@
 # http://setosa.io/ev/principal-component-analysis/
 # home page of this stuff http://setosa.io/ev/ 
 
+# Example of another implementation
+# https://sebastianraschka.com/Articles/2014_pca_step_by_step.html
+
 # PCA Wikipedia
 # https://en.wikipedia.org/wiki/Principal_component_analysis
 
