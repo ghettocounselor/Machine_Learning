@@ -47,3 +47,4 @@ graph.write_png("decision_tree_vis.png")
 plt.show()
 plt.savefig('RandomOutput.png')
 
+# see file plot_confusion_matrix.py for just that, how to plot a cm visually

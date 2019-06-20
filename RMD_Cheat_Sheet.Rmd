@@ -28,3 +28,12 @@ If you don't want to see warnings 'message=FALSE'
 ```{r pressure, echo=TRUE, fig.cap="A caption", out.width = '100%'}
 knitr::include_graphics("/Users/markloessi/Machine_Learning/Confusion_Matrix_Explained.png")
 ```
+
+Compute accuracy from a confusion matrix. In this example it's a three column CM
+See Lecture 282 https://www.udemy.com/machinelearning/learn/lecture/6453704 @1502 time
+```{r , include=TRUE}
+cm = table(test_set[, 3], y_pred)
+cm
+accuracy = (cm[1,1] + cm[2,2]) / (cm[1,1] + cm[2,2] + cm[1,2] + cm[2,1])
+return(accuracy)
+```

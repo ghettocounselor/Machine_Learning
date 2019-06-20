@@ -17,6 +17,8 @@ PCA Wikipedia https://en.wikipedia.org/wiki/Principal_component_analysis
 # PCA in a nutshell
 What we are doing is taking a large number of independent variables and extracting them down to a core group of new independent variables that best describe the relationship (most variance) of the data in the dataset. Because this extraction is done without knowledge of the dependent variable the PCA process is considered un-supervised dimensionality reduction technique.
 
+Both PCA and LDA are applicable to data that can be linearly separable. 
+
 check working directory getwd()
 ```{r, include=FALSE}
 getwd()
@@ -91,6 +93,12 @@ Perefect results
 ```{r , include=TRUE}
 cm = table(test_set[, 3], y_pred)
 cm
+```
+
+# Accuracy
+```{r , include=TRUE}
+accuracy = (cm[1,1] + cm[2,2]) / (cm[1,1] + cm[2,2] + cm[1,2] + cm[2,1])
+  return(accuracy)
 ```
 
 # Predicting the Training set results
