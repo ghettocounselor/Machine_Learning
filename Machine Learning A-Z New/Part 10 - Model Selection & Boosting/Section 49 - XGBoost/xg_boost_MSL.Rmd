@@ -18,7 +18,7 @@ getwd()
 ```
 
 # Importing the dataset
-```{r, include=FALSE}
+```{r, include=TRUE}
 dataset = read.csv('Churn_Modelling.csv')
 # we only need the features (independent variables) we don't need the dependent variable
 # we've removed the 1st three columns because they have no impact on the dependent variable
@@ -30,7 +30,7 @@ knitr::include_graphics("BankCustomerData.png")
 ```
 
 # Encoding the categorical variables as factors
-```{r, include=FALSE}
+```{r, include=TRUE}
 dataset$Geography = as.numeric(factor(dataset$Geography,
                                       levels = c('France', 'Spain', 'Germany'),
                                       labels = c(1, 2, 3)))
@@ -40,7 +40,7 @@ dataset$Gender = as.numeric(factor(dataset$Gender,
 ```
 
 # Splitting the dataset into the Training set and Test set
-```{r, include=FALSE}
+```{r, include=TRUE}
 # install.packages('caTools')
 library(caTools)
 set.seed(123)
@@ -50,39 +50,48 @@ test_set = subset(dataset, split == FALSE)
 ```
 
 # Fitting XGBoost to the Training set
-```{r, include=FALSE}
+Results are the Root Mean Squares. 
+```{r, include=TRUE}
 # install.packages('xgboost')
 library(xgboost)
-# the -11 references our removal of the dependent variable
+# the -11 references our removal of the dependent variable from the mastrix
 # we have a dataframe and we need a matrix so we use as.matrix
+# label is the dependent variable as a vector
+# rounds is the number of iterations, we'll choose 10
 classifier = xgboost(data = as.matrix(training_set[-11]), label = training_set$Exited, nrounds = 10)
 ```
 
 # Predicting the Test set results
-```{r, include=FALSE}
+```{r, include=TRUE}
 y_pred = predict(classifier, newdata = as.matrix(test_set[-11]))
 y_pred = (y_pred >= 0.5)
 ```
 
 # Making the Confusion Matrix
-```{r, include=FALSE}
+```{r, include=TRUE}
 cm = table(test_set[, 11], y_pred)
 ```
 
 # Applying k-Fold Cross Validation
-```{r, include=FALSE}
+To validate the accuracy of our XGBoost implementation. 
+```{r, include=TRUE}
 # install.packages('caret')
 library(caret)
 folds = createFolds(training_set$Exited, k = 10)
 cv = lapply(folds, function(x) {
   training_fold = training_set[-x, ]
   test_fold = training_set[x, ]
+  # we stick our XGBoost classifier in here
   classifier = xgboost(data = as.matrix(training_fold[-11]), label = training_fold$Exited, nrounds = 10)
-  y_pred = predict(classifier, newdata = as.matrix(test_fold[-11]))
-  y_pred = (y_pred >= 0.5)
+  y_pred = predict(classifier, newdata = as.matrix(test_fold[-11])) # again need a matrix
+  y_pred = (y_pred >= 0.5) # here we are setting up the binary outcome of 0 or 1
   cm = table(test_fold[, 11], y_pred)
   accuracy = (cm[1,1] + cm[2,2]) / (cm[1,1] + cm[2,2] + cm[1,2] + cm[2,1])
   return(accuracy)
 })
 accuracy = mean(as.numeric(cv))
+```
+
+```{r, include=TRUE}
+accuracy
 ```

@@ -1,3 +1,7 @@
+---
+title: "logistic_regression_MSL"
+output: html_document
+---
 # Logistic Regression
 
 # glm is used to fit generalized linear models, specified by giving a symbolic description 

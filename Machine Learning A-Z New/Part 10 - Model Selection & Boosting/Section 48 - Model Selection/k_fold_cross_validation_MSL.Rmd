@@ -146,4 +146,33 @@ points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
 points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
 ```
 
+# Confusion Matrix calculations in R
+```{r, include=TRUE}
+# install.packages('ROCR')
+library (ROCR);
 
+y_pred = predict(classifier, newdata = test_set[-3])
+```
+# Making the Confusion Matrix
+There's a cool way to graph the CM, well really visualize it. 
+```{r, include=TRUE}
+cm = table(test_set[, 3], y_pred)
+ 
+y <- ... # logical array of positive / negative cases
+predictions <- ... # array of predictions
+ 
+pred <- prediction(predictions, y);
+ 
+# Recall-Precision curve             
+RP.perf <- performance(pred, "prec", "rec");
+ 
+plot (RP.perf);
+ 
+# ROC curve
+ROC.perf <- performance(pred, "tpr", "fpr");
+plot (ROC.perf);
+ 
+# ROC area under the curve
+auc.tmp <- performance(pred,"auc");
+auc <- as.numeric(auc.tmp@y.values)
+```
